@@ -17,6 +17,7 @@ import TextArea from "antd/es/input/TextArea";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import { resolve } from "path/win32";
 
 export default function StockCreatePage() {
   const [picture, setPicture] = useState<ImageUpload>();
@@ -25,7 +26,7 @@ export default function StockCreatePage() {
   const ProductInterface: any = {
     Name: "",
     Price: "",
-    Description: "",
+    Desciption: "",
     Image: picture,
   };
 
@@ -34,7 +35,6 @@ export default function StockCreatePage() {
     console.log(values);
     let res = await CreateProduct(values);
     if (res.status) {
-      console.log(res.status);
       Swal.fire({
         title: "Success",
         text: "เพิ่มสินค้าสำเร็จ !",
@@ -69,7 +69,6 @@ export default function StockCreatePage() {
           let err: any = {};
           if (!values.Name) err.Name = "กรุณากรอกชื่อ !";
           if (!values.Price) err.Price = "กรุณากรอกราคา !";
-          if (!values.Description) err.Description = "กรุณากรอก !";
           if (!picture) err.picture = "กรุณาอัปโหลดรูปภาw !";
           return err;
         }}
@@ -107,9 +106,9 @@ export default function StockCreatePage() {
                 component={TextField}
                 multiline
                 maxRows={4}
-                name="Description"
+                name="Desciption"
                 type="text"
-                label="Description"
+                label="Desciption"
               />
               <Field name="Image">
                 {() => (

@@ -69,7 +69,7 @@ export default function StockEditPage() {
     ID: product?.ID,
     Name: product?.Name,
     Price: product?.Price,
-    Description: product?.Description,
+    Desciption: product?.Desciption,
     Image: product?.Image,
   };
   return (
@@ -116,13 +116,13 @@ export default function StockEditPage() {
               <Field
                 style={{ marginTop: 16 }}
                 fullWidth
-                // focused
+                focused
                 component={TextField}
                 multiline
                 maxRows={4}
-                name="Description"
+                name="Desciption"
                 type="text"
-                label="Description"
+                label="Desciption"
               />
               <Field name="Image">
                 {() => (
