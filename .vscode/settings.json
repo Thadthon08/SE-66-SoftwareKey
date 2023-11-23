@@ -1,0 +1,6 @@
+{
+  "editor.formatOnSave": true,
+  "explorer.compactFolders": false,
+  "prettier.printWidth": 120,
+  "editor.hover.delay": 1000
+}
