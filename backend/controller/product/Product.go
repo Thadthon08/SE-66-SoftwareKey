@@ -9,6 +9,8 @@ import (
 
 func CreateProduct(c *gin.Context) {
 	var Product entity.Product
+	var Admin entity.Admin
+	var Category entity.Category
 
 	// bind เข้าตัวแปร Product
 	if err := c.ShouldBindJSON(&Product); err != nil {
@@ -16,12 +18,23 @@ func CreateProduct(c *gin.Context) {
 		return
 	}
 
+	if tx := entity.DB().Where("id = ?", Product.AdminID).First(&Admin); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Admin user not found"})
+		return
+	}
+	if tx := entity.DB().Where("id = ?", Product.CategoryID).First(&Category); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Category user not found"})
+		return
+	}
+
 	//สร้าง Product
 	u := entity.Product{
-		Name:  Product.Name,  
-		Price: Product.Price, 
+		Admin:      Admin,
+		Category:   Category,
+		Name:       Product.Name,
+		Price:      Product.Price,
 		Desciption: Product.Desciption,
-		Image: Product.Image, //ตั้งค่าฟิลด์ Image
+		Image:      Product.Image,
 	}
 
 	//บันทึก

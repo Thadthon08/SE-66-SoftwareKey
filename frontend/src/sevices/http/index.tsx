@@ -26,7 +26,7 @@ async function GetProduct() {
 async function CreateProduct(data: ProductInterface) {
   const requestOptions = {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}`, "Content-Type": "application/json" },
     body: JSON.stringify(data),
   };
 
@@ -98,4 +98,23 @@ async function DeleteProductByID(id: Number | undefined) {
   return res;
 }
 
-export { CreateProduct, GetProduct, UpdateProduct, GetProductById, DeleteProductByID };
+//User
+async function GetUserById(id: Number) {
+  const requestOptions = {
+    method: "GET",
+  };
+
+  let res = await fetch(`${apiUrl}/User/${id}`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
+export { CreateProduct, GetProduct, UpdateProduct, GetProductById, DeleteProductByID, GetUserById };

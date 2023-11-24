@@ -11,6 +11,10 @@ type Product struct {
 	Price        float64
 	Desciption   string
 	Sorftwarekey []Sorftwarekey `gorm:"foreignKey:ProductID"`
+	CategoryID *uint
+	Category Category  `gorm:"references:id"`
+	AdminID *uint
+	Admin Admin `gorm:"references:id"`
 }
 type Sorftwarekey struct {
 	gorm.Model
@@ -31,4 +35,10 @@ type Admin struct {
 	Password        string
 	Name            string `gorm:"uniqueIndex" valid:"มีUserนี้อยู่แล้ว,required~กรุณากรอกชื่อใหม่อีกครั้ง"`
 	Profile_Picture string `gorm:"type:longtext"`
+	Product []Product `gorm:"foreignKey:AdminID"`
+}
+type Category struct {
+	gorm.Model
+	Name string `gorm:"uniqueIndex" valid:"มีชื่อนี้อยู่แล้ว,required~กรุณากรอกชื่อใหม่อีกครั้ง"`
+	Product []Product `gorm:"foreignKey:CategoryID"`
 }

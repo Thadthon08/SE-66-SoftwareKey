@@ -3,11 +3,12 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 
+	admin_controller "github.com/Thadthon08/se-66-stock/controller/admin"
+	category_controller "github.com/Thadthon08/se-66-stock/controller/category"
+	login_controller "github.com/Thadthon08/se-66-stock/controller/login"
 	Product_controller "github.com/Thadthon08/se-66-stock/controller/product"
 	Sorftwarekey_controller "github.com/Thadthon08/se-66-stock/controller/softwarekey"
-	login_controller "github.com/Thadthon08/se-66-stock/controller/login"
 	user_controller "github.com/Thadthon08/se-66-stock/controller/user"
-	admin_controller "github.com/Thadthon08/se-66-stock/controller/admin"
 
 	"github.com/Thadthon08/se-66-stock/entity"
 )
@@ -19,11 +20,9 @@ func main() {
 	r := gin.Default()
 	r.Use(CORSMiddleware())
 
-	
 	// login User Route
 	r.POST("/login/user", login_controller.LoginUser)
 	r.POST("/users", user_controller.CreateUser)
-
 
 	// login Admin Route
 	r.POST("/login/admin", login_controller.LoginAdmin)
@@ -43,7 +42,10 @@ func main() {
 	r.PATCH("/key", Sorftwarekey_controller.UpdateSorftwarekey)
 	r.DELETE("/key/:id", Sorftwarekey_controller.DeleteSorftwarekey)
 	// Run the server
-
+	//Category
+	r.POST("/category", category_controller.CreateCategory)
+	r.GET("/categorys", category_controller.ListCategory)
+	r.GET("/category/:id", category_controller.GetCategory)
 	r.Run()
 
 }

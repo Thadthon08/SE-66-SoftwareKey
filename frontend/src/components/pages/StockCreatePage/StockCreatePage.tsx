@@ -10,14 +10,7 @@ import { TextField } from "formik-material-ui";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { ProductInterface } from "../../../interfaces/IProduct";
 import { CreateProduct } from "../../../sevices/http/index";
-import IconButton from "@mui/material/IconButton";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Swal from "sweetalert2";
-import TextArea from "antd/es/input/TextArea";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import { resolve } from "path/win32";
 
 export default function StockCreatePage() {
   const [picture, setPicture] = useState<ImageUpload>();
@@ -27,13 +20,15 @@ export default function StockCreatePage() {
     Name: "",
     Price: "",
     Desciption: "",
-    Image: picture,
   };
 
   const handleSubmit = async (values: ProductInterface) => {
     values.Image = picture?.thumbUrl;
-    console.log(values);
+    values.AdminID = Number(localStorage.getItem("aid")) || 1;
+    console.log(values.AdminID);
+    values.CategoryID = 1;
     let res = await CreateProduct(values);
+    console.log(res);
     if (res.status) {
       Swal.fire({
         title: "Success",
@@ -47,8 +42,8 @@ export default function StockCreatePage() {
       });
     } else {
       Swal.fire({
-        title: "Error",
-        text: "มีสินค้านี้อยู่แล้ว !",
+        title: "ไม่สามารถเพิ่มสินค้าได้",
+        text: " กรุณาตรวจสอบความถูกต้อง!",
         icon: "error",
         timer: 4000,
       });

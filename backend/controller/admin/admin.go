@@ -1,12 +1,13 @@
 package controller
 
 import (
+	"net/http"
+
+	"github.com/Thadthon08/se-66-stock/entity"
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
-	 _"gorm.io/gorm"
-	"github.com/Thadthon08/se-66-stock/entity"
-	"net/http"
-	"github.com/asaskevich/govalidator"
+	_ "gorm.io/gorm"
 )
 
 func CreateAdmin(c *gin.Context) {

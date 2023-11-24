@@ -127,36 +127,15 @@ export default function App() {
       );
     } else if (localStorage.getItem("position") == "User") {
       return (
-        <Routes>
-          <Route path="/" element={<HomeUser />} />
-        </Routes>
+        <ThemeProvider theme={theme}>
+          <Routes>
+            <Route path="/" element={<HomeUser />} />
+          </Routes>
+        </ThemeProvider>
       );
     }
   }
-  return (
-    // <ThemeProvider theme={theme}>
-    //   <Box sx={{ display: "flex" }}>
-    //     <CssBaseline />
-    //     {true && <Header open={open} onDrawerOpen={handleDrawerOpen} />}
-    //     {true && <Menu open={open} onDrawerClose={handleDrawerClose} />}
-    //     <Main open={open}>
-    //       <DrawerHeader />
-    //       <Routes>
-    //         <Route path="/" element={<Navigate to="/login" />} />
-    //         <Route path="*" element={<NotFound />} />
-    //         <Route path="/login" element={<LoginPage />} />
-    //         <Route path="/register" element={<RegisterPage />} />
-    //         <Route path="/stock" element={<StockPage />} />
-    //         <Route path="/stock/create" element={<StockCreatePage />} />
-    //         <Route path="/stock/edit/:id" element={<StockEditPage />} />
-    //         <Route path="/storage" element={<SoftwareKey />} />
-    //         <Route path="/storage/create" element={<SoftwareKeyCreate />} />
-    //       </Routes>
-    //     </Main>
-    //   </Box>
-    // </ThemeProvider>
-    <>{routers()}</>
-  );
+  return <>{routers()}</>;
 }
 
 function NotFound() {

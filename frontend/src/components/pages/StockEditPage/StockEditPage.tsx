@@ -31,7 +31,9 @@ export default function StockEditPage() {
 
   const handleSubmit = async (values: ProductInterface) => {
     values.Image = picture?.thumbUrl;
-    values.ID = id !== undefined ? Number.parseInt(id) : undefined;
+    // values.ID = id !== undefined ? Number.parseInt(id) : undefined;
+    values.ID = Number(id);
+    values.AdminID = Number(localStorage.getItem("aid")) || 1;
     console.log(values);
     let res = await UpdateProduct(values);
     console.log(res);
@@ -71,6 +73,7 @@ export default function StockEditPage() {
     Price: product?.Price,
     Desciption: product?.Desciption,
     Image: product?.Image,
+    CategoryID: product?.CategoryID,
   };
   return (
     <>
