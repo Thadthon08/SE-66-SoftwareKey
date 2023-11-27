@@ -18,70 +18,19 @@ import ShoppingCartSharpIcon from "@mui/icons-material/ShoppingCartSharp";
 import Swal from "sweetalert2";
 import { Avatar, Container, Paper } from "@mui/material";
 import Carousels from "../../layouts/Carousel/Carousels";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
-import ImageListItemBar from "@mui/material/ImageListItemBar";
 import { ProductInterface } from "../../../interfaces/IProduct";
 import { GetProduct } from "../../../sevices/http";
 import ShowProduct from "../../layouts/ShowProduct_HOME/ShowProduct";
-
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
+import { Link, useNavigate } from "react-router-dom";
+import SearchProduct from "../../layouts/SearchProduct";
 
 export default function Home() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [products, setProducts] = React.useState<ProductInterface[]>([]);
-  const [userID] = React.useState(localStorage.getItem("uid"))
-
-  const getProducts = async () => {
-    let res = await GetProduct();
-    if (res) {
-      setProducts(res);
-    }
-  };
-
-  React.useEffect(() => {
-    getProducts();
-  }, []);
-
+  const [userID] = React.useState(localStorage.getItem("uid"));
+  const [query, setQuery] = React.useState("");
+  const [searchResults, setSearchResults] = React.useState([]);
+  const Navigate = useNavigate();
   const isMenuOpen = Boolean(anchorEl);
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -135,7 +84,7 @@ export default function Home() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      <MenuItem onClick={Signout}>Sign out</MenuItem>
+      <MenuItem onClick={Signout}>Sign Out</MenuItem>
     </Menu>
   );
 
@@ -144,15 +93,19 @@ export default function Home() {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
-            <Typography variant="h6" noWrap component="div" sx={{ display: { xs: "none", sm: "block" } }}>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ display: { xs: "none", sm: "block", cursor: "pointer" } }}
+              onClick={() => {
+                window.location.href = "/home";
+              }}
+            >
               KEYHUBPRO
             </Typography>
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase placeholder="Search…" inputProps={{ "aria-label": "search" }} />
-            </Search>
+            {/* SearchProduct Component */}
+            <SearchProduct />
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
               <IconButton size="large" aria-label="show 4 new cart" color="inherit">

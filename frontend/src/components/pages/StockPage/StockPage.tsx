@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { DataGrid, GridValueGetterParams } from "@mui/x-data-grid";
+import { DataGrid, GridToolbarQuickFilter, GridValueGetterParams } from "@mui/x-data-grid";
 import { Typography, Box, Button, Toolbar } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { Link, useNavigate } from "react-router-dom";
@@ -18,6 +18,19 @@ export default function StockPage() {
   const Navigate = useNavigate();
   const [product, setProduct] = React.useState<ProductInterface[]>([]);
 
+  function QuickSearchToolbar() {
+    return (
+      <Box
+        sx={{
+          p: 2,
+          pb: 0,
+        }}
+      >
+        <GridToolbarQuickFilter />
+      </Box>
+    );
+  }
+
   const stockColumns: GridColDef[] = [
     {
       headerName: "ID",
@@ -27,7 +40,7 @@ export default function StockPage() {
     {
       headerName: "IMAGE",
       field: "Image",
-      width: 250,
+      width: 200,
       renderCell: ({ value }: GridRenderCellParams<String>) => (
         <img src={value} style={{ width: 70, height: 70, borderRadius: "5%" }} />
       ),
@@ -35,7 +48,7 @@ export default function StockPage() {
     {
       headerName: "NAME",
       field: "Name",
-      width: 300,
+      width: 380,
     },
     {
       headerName: "STOCK",
@@ -159,7 +172,7 @@ export default function StockPage() {
       <AppBar position="static" sx={{ backgroundColor: "#ffffff", marginBottom: 2 }}>
         <Toolbar variant="dense">
           <Typography variant="h4" color="black" component="div">
-            Products
+            PRODUCTS
           </Typography>
         </Toolbar>
       </AppBar>
@@ -171,6 +184,8 @@ export default function StockPage() {
       </Button>
       <Box sx={{ width: "100%", marginTop: 2, backgroundColor: "#ffffff" }}>
         <DataGrid
+          sx={{ height: "70vh" }}
+          slots={{ toolbar: QuickSearchToolbar }}
           rows={product}
           rowHeight={75}
           autoHeight={true}
@@ -184,7 +199,6 @@ export default function StockPage() {
             },
           }}
           pageSizeOptions={[5]}
-          checkboxSelection
           disableRowSelectionOnClick
         />
       </Box>

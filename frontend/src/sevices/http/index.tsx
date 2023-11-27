@@ -117,4 +117,25 @@ async function GetUserById(id: Number) {
   return res;
 }
 
-export { CreateProduct, GetProduct, UpdateProduct, GetProductById, DeleteProductByID, GetUserById };
+async function GetCategory() {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`${apiUrl}/category`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
+export { CreateProduct, GetProduct, UpdateProduct, GetProductById, DeleteProductByID, GetUserById, GetCategory };

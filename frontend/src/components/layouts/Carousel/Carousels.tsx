@@ -3,11 +3,11 @@ import { Carousel } from "antd";
 import { ProductInterface } from "../../../interfaces/IProduct";
 import { GetProduct } from "../../../sevices/http";
 const contentStyle: React.CSSProperties = {
-  height: "350px",
+  width: "100%",
   color: "#fff",
   lineHeight: "160px",
   textAlign: "center",
-  background: "#364d79",
+  background: "#3a3b3c",
   margin: 0,
 };
 
@@ -35,16 +35,16 @@ export default function Carousels() {
     // </Carousel>
     <Carousel autoplay>
       <div>
-        <h3 style={contentStyle}>1</h3>
+        <img src={process.env.PUBLIC_URL + "/images/promo.jpg"} style={contentStyle} />
       </div>
       <div>
-        <h3 style={contentStyle}>2</h3>
+        <img src={process.env.PUBLIC_URL + "/images/promo1.jpg"} style={contentStyle} />
       </div>
       <div>
-        <h3 style={contentStyle}>3</h3>
+        <img src={process.env.PUBLIC_URL + "/images/promo2.jpg"} style={contentStyle} />
       </div>
       <div>
-        <h3 style={contentStyle}>4</h3>
+        <img src={process.env.PUBLIC_URL + "/images/promo4.jpg"} style={contentStyle} />
       </div>
     </Carousel>
   );

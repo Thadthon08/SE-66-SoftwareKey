@@ -97,3 +97,27 @@ func UpdateProduct(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": &Product})
 }
+
+//Search Product
+
+func SearchProducts(c *gin.Context) {
+	var products []entity.Product
+
+	// รับคำค้นหาจาก query parameter
+	query := c.Query("query")
+
+	// ใช้ Gorm เพื่อค้นหาข้อมูล
+	if query != "" {
+		if err := entity.DB().Where("name LIKE ?", "%"+query+"%").Find(&products).Error; err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+	} else {
+		if err := entity.DB().Find(&products).Error; err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": products})
+}

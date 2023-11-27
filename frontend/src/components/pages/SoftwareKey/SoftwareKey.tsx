@@ -159,7 +159,7 @@ export default function KeystoragePage() {
       <AppBar position="static" sx={{ backgroundColor: "#ffffff", marginBottom: 2 }}>
         <Toolbar variant="dense">
           <Typography variant="h4" color="black" component="div">
-            SoftwareKey
+            KEYSOFTWARE
           </Typography>
         </Toolbar>
       </AppBar>

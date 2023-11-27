@@ -210,7 +210,7 @@ function LoginAdmin() {
               alignSelf: "center",
             }}
           >
-            <Avatar sx={{ p: 3, m: 2, bgcolor: "#000" }}>
+            <Avatar sx={{ p: 3, m: 2, bgcolor: "#000", cursor: "pointer" }} onClick={handleClickOpen}>
               <LockIcon />
             </Avatar>
             <Typography component="h1" variant="h2">
@@ -219,7 +219,6 @@ function LoginAdmin() {
             <Box sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
-                required
                 fullWidth
                 id="Email"
                 label="Email"
@@ -231,7 +230,6 @@ function LoginAdmin() {
               />
               <TextField
                 margin="normal"
-                required
                 fullWidth
                 name="password"
                 label="Password"
@@ -244,7 +242,7 @@ function LoginAdmin() {
               <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2, p: 1.2 }} onClick={submitUser}>
                 Sign In
               </Button>
-              <Button
+              {/* <Button
                 type="submit"
                 fullWidth
                 variant="contained"
@@ -252,7 +250,7 @@ function LoginAdmin() {
                 onClick={handleClickOpen}
               >
                 Sign In for Admin
-              </Button>
+              </Button> */}
             </Box>
           </Box>
           <Dialog open={open} onClose={handleDialogClose}>

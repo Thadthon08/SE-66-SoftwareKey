@@ -1,19 +1,37 @@
 import React, { useState } from "react";
 import { FormikProps, Form, Field, Formik } from "formik";
-import { Box, Button, Card, CardActions, CardContent, Container, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Container,
+  Divider,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  SelectChangeEvent,
+  Typography,
+} from "@mui/material";
 import { Upload, Form as Formant } from "antd";
 import { ImageUpload } from "../../../interfaces/IUpload";
 import AddIcon from "@mui/icons-material/Add";
 import { TextField } from "formik-material-ui";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { ProductInterface } from "../../../interfaces/IProduct";
-import { GetProductById, UpdateProduct } from "../../../sevices/http/index";
+import { GetCategory, GetProductById, UpdateProduct } from "../../../sevices/http/index";
+import { CategoryInterface } from "../../../interfaces/ICategory";
+import Select from "@mui/material/Select";
 
 import Swal from "sweetalert2";
 
 export default function StockEditPage() {
   const [picture, setPicture] = useState<ImageUpload>();
   const [product, setProduct] = useState<ProductInterface>();
+  const [category, setCategory] = React.useState<CategoryInterface[]>([]);
   const Navigate = useNavigate();
 
   let { id } = useParams();
@@ -24,16 +42,23 @@ export default function StockEditPage() {
       setProduct(res);
     }
   };
+  const getCategory = async () => {
+    let res = await GetCategory();
+    console.log(res);
+    if (res) {
+      setCategory(res);
+    }
+  };
 
   React.useEffect(() => {
     getProductById();
+    getCategory();
   }, []);
 
   const handleSubmit = async (values: ProductInterface) => {
     values.Image = picture?.thumbUrl;
-    // values.ID = id !== undefined ? Number.parseInt(id) : undefined;
     values.ID = Number(id);
-    values.AdminID = Number(localStorage.getItem("aid")) || 1;
+    values.AdminID = Number(localStorage.getItem("aid"));
     console.log(values);
     let res = await UpdateProduct(values);
     console.log(res);
@@ -75,16 +100,19 @@ export default function StockEditPage() {
     Image: product?.Image,
     CategoryID: product?.CategoryID,
   };
+
   return (
     <>
-      {/* {console.log(JSON.stringify(getProductById()))} */}
-      {console.log(product)}
       <Formik
         validate={(values) => {
           let err: any = {};
           if (!values.Name) err.Name = "กรุณากรอกชื่อ !";
           if (!values.Price) err.Price = "กรุณากรอกราคา !";
           if (!picture) err.picture = "กรุณาอัปโหลดรูปภาw !";
+          if (!values.CategoryID) err.CategoryID = "กรุณาเลือกประเภท !";
+          {
+            console.log(values.CategoryID);
+          }
           return err;
         }}
         enableReinitialize={true}
@@ -106,10 +134,46 @@ export default function StockEditPage() {
                 label="Name"
                 focused
               />
-              <br />
+              <Field name="CategoryID" focused>
+                {({ field, form }: { field: any; form: any }) => (
+                  <FormControl
+                    focused
+                    sx={{ width: 250, marginTop: 2 }}
+                    error={form.touched.CategoryID && form.errors.CategoryID}
+                  >
+                    <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      label="Category"
+                      {...field}
+                      sx={{
+                        "& .MuiSelect-root": {
+                          borderColor: "black", // Set the border color directly
+                        },
+                      }}
+                      value={field.value || ""} // Set the initial value
+                      onChange={(e: React.ChangeEvent<{ value: any }>) =>
+                        form.setFieldValue("CategoryID", e.target.value)
+                      }
+                    >
+                      {category.map((item) => (
+                        <MenuItem key={item?.ID} value={item?.ID}>
+                          {item?.Name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    {form.touched.CategoryID && form.errors.CategoryID ? (
+                      <FormHelperText sx={{ fontSize: 12, padding: 0.2, color: "red" }}>
+                        {form.errors.CategoryID}
+                      </FormHelperText>
+                    ) : null}
+                  </FormControl>
+                )}
+              </Field>
+
               <Field
-                style={{ marginTop: 16 }}
-                fullWidth
+                style={{ marginTop: 16, marginLeft: 16, width: 250 }}
                 component={TextField}
                 name="Price"
                 type="number"

@@ -62,7 +62,7 @@ const theme = createTheme({
       main: "#000",
     },
     background: {
-      default: "#fff8f8",
+      default: "#f9f9f9",
     },
   },
 });
@@ -113,8 +113,7 @@ export default function App() {
                 {/* <Route path="/" element={<Navigate to="/login" />} /> */}
                 <Route path="/" element={<StockPage />} />
                 <Route path="*" element={<NotFound />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
+                {/* <Route path="/register" element={<RegisterPage />} /> */}
                 <Route path="/stock" element={<StockPage />} />
                 <Route path="/stock/create" element={<StockCreatePage />} />
                 <Route path="/stock/edit/:id" element={<StockEditPage />} />
@@ -130,6 +129,8 @@ export default function App() {
         <ThemeProvider theme={theme}>
           <Routes>
             <Route path="/" element={<HomeUser />} />
+            <Route path="/home" element={<HomeUser />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </ThemeProvider>
       );

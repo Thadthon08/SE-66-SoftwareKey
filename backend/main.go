@@ -31,6 +31,7 @@ func main() {
 	// Admin Routes
 	//Products
 	r.GET("/Products", Product_controller.ListProducts)
+	r.GET("/search", Product_controller.SearchProducts)
 	r.GET("/Products/:id", Product_controller.GetProduct)
 	r.POST("/Products", Product_controller.CreateProduct)
 	r.PATCH("/Products", Product_controller.UpdateProduct)
@@ -44,7 +45,7 @@ func main() {
 	// Run the server
 	//Category
 	r.POST("/category", category_controller.CreateCategory)
-	r.GET("/categorys", category_controller.ListCategory)
+	r.GET("/category", category_controller.ListCategory)
 	r.GET("/category/:id", category_controller.GetCategory)
 	r.Run()
 

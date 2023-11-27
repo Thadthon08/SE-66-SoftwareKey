@@ -63,7 +63,7 @@ export default function Menu({ open, onDrawerClose }: MenuProp) {
     >
       <DrawerHeader>
         <Stack direction="row" alignItems="center">
-          <img src={`${process.env.PUBLIC_URL}/images/keyhub-logo.png`} height={73} />
+          <img src={`${process.env.PUBLIC_URL}/images/keyhub-logo.png`} height={64} />
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "ltr" ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
@@ -76,7 +76,7 @@ export default function Menu({ open, onDrawerClose }: MenuProp) {
             <ListItemIcon>
               <LayersIcon />
             </ListItemIcon>
-            <ListItemText primary="Stock" />
+            <ListItemText primary="PRODUCTS" />
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding component={NavLink} to="/storage" sx={{ color: "black" }}>
@@ -84,7 +84,7 @@ export default function Menu({ open, onDrawerClose }: MenuProp) {
             <ListItemIcon>
               <StorageIcon />
             </ListItemIcon>
-            <ListItemText primary="SoftwareKey" />
+            <ListItemText primary="KEYSOFTWARE" />
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding component={NavLink} to="/1" sx={{ color: "black" }}>
