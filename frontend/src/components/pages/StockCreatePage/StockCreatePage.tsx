@@ -101,11 +101,11 @@ export default function StockCreatePage() {
               <Typography gutterBottom variant="h3">
                 Create Product
               </Typography>
-              <Field style={{ marginTop: 16 }} fullWidth component={TextField} name="Name" type="text" label="Name" />
+              <Field style={{ marginTop: 2 }} fullWidth component={TextField} name="Name" type="text" label="Name" />
               <Field name="CategoryID">
                 {({ field, form }: { field: any; form: any }) => (
                   <FormControl
-                    sx={{ width: 250, marginTop: 2 }}
+                    sx={{ width: 250, marginTop: 1 }}
                     error={form.touched.CategoryID && form.errors.CategoryID}
                   >
                     <InputLabel id="demo-simple-select-label">Category</InputLabel>
@@ -132,17 +132,47 @@ export default function StockCreatePage() {
                   </FormControl>
                 )}
               </Field>
+              <Field name="*">
+                {({ field, form }: { field: any; form: any }) => (
+                  <FormControl
+                    sx={{ width: 250, marginTop: 1, marginLeft: 2.2 }}
+                    error={form.touched.CategoryID && form.errors.CategoryID}
+                  >
+                    <InputLabel id="demo-simple-select-label">Company</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      label="Category"
+                      {...field}
+                      onChange={(e: React.ChangeEvent<{ value: any }>) =>
+                        form.setFieldValue("CategoryID", e.target.value)
+                      }
+                    >
+                      {category.map((item) => (
+                        <MenuItem key={item?.ID} value={item?.ID}>
+                          {item?.Name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    {form.touched.CategoryID && form.errors.CategoryID ? (
+                      <FormHelperText sx={{ fontSize: 12, padding: 0.2, color: "red" }}>
+                        {form.errors.CategoryID}
+                      </FormHelperText>
+                    ) : null}
+                  </FormControl>
+                )}
+              </Field>
               <Field
-                style={{ marginTop: 16, marginLeft: 16, width: 250 }}
+                style={{ marginTop: 10 }}
+                fullWidth
                 component={TextField}
                 name="Price"
                 type="number"
                 label="Price"
               />
               <Field
-                style={{ marginTop: 16, color: "#000" }}
+                style={{ marginTop: 10, color: "#000" }}
                 fullWidth
-                // focused
                 component={TextField}
                 multiline
                 maxRows={4}
@@ -152,7 +182,7 @@ export default function StockCreatePage() {
               />
               <Field name="Image">
                 {() => (
-                  <div style={{ marginTop: 16 }}>
+                  <div style={{ marginTop: 10 }}>
                     <Upload maxCount={1} multiple={false} listType="picture-card" onChange={normImage}>
                       <div>
                         <AddIcon />

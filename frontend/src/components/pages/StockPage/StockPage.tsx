@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { DataGrid, GridToolbarQuickFilter, GridValueGetterParams } from "@mui/x-data-grid";
-import { Typography, Box, Button, Toolbar } from "@mui/material";
+import { Typography, Box, Button, Toolbar, Container } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { Link, useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
@@ -35,12 +35,12 @@ export default function StockPage() {
     {
       headerName: "ID",
       field: "ID",
-      width: 50,
+      width: 60,
     },
     {
       headerName: "IMAGE",
       field: "Image",
-      width: 200,
+      width: 150,
       renderCell: ({ value }: GridRenderCellParams<String>) => (
         <img src={value} style={{ width: 70, height: 70, borderRadius: "5%" }} />
       ),
@@ -53,7 +53,7 @@ export default function StockPage() {
     {
       headerName: "STOCK",
       width: 150,
-      field: "price",
+      field: "*",
       // renderCell: ({ value }: GridRenderCellParams<any>) => (
       //   <Typography variant="body1">
       //     <NumberFormat
@@ -86,7 +86,7 @@ export default function StockPage() {
     {
       headerName: "TIME",
       field: "CreatedAt",
-      width: 170,
+      width: 160,
       renderCell: ({ value }: GridRenderCellParams<any>) => (
         <Typography variant="body1">
           <Moment format="DD/MM/YYYY HH:mm">{value}</Moment>
@@ -169,39 +169,57 @@ export default function StockPage() {
   }, []);
   return (
     <>
-      <AppBar position="static" sx={{ backgroundColor: "#ffffff", marginBottom: 2 }}>
-        <Toolbar variant="dense">
-          <Typography variant="h4" color="black" component="div">
-            PRODUCTS
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Button variant="contained" onClick={() => Navigate("/stock/create")}>
-        <AddIcon />
-        <Typography variant="h6" component="div">
-          ADDPRODUCT
-        </Typography>
-      </Button>
-      <Box sx={{ width: "100%", marginTop: 2, backgroundColor: "#ffffff" }}>
-        <DataGrid
-          sx={{ height: "70vh" }}
-          slots={{ toolbar: QuickSearchToolbar }}
-          rows={product}
-          rowHeight={75}
-          autoHeight={true}
-          getRowId={(rows) => rows.ID}
-          columns={stockColumns}
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 5,
-              },
-            },
+      <Container maxWidth="xl">
+        <Typography
+          variant="h3"
+          component="div"
+          sx={{
+            color: "#ffff",
+            marginBottom: 2,
+            textShadow: "1px 2px 6px #121212, 0 0 1em #FFFF, 0 0 0.5em #404040",
           }}
-          pageSizeOptions={[5]}
-          disableRowSelectionOnClick
-        />
-      </Box>
+        >
+          Products
+        </Typography>
+        <Box
+          sx={{
+            width: "100%",
+            background: "#FFFF",
+            borderRadius: 3,
+            boxShadow: "0 0 9px rgba(228, 230, 235,.7),inset 0 0 9px rgba(228, 230, 235,.7)",
+          }}
+        >
+          <Box sx={{ padding: 2 }}>
+            <Button variant="contained" onClick={() => Navigate("/stock/create")}>
+              <AddIcon />
+              <Typography variant="h6" component="div">
+                ADDPRODUCT
+              </Typography>
+            </Button>
+            <DataGrid
+              sx={{
+                height: "70vh",
+                marginTop: 2,
+              }}
+              slots={{ toolbar: QuickSearchToolbar }}
+              rows={product}
+              rowHeight={75}
+              autoHeight={true}
+              getRowId={(rows) => rows.ID}
+              columns={stockColumns}
+              initialState={{
+                pagination: {
+                  paginationModel: {
+                    pageSize: 5,
+                  },
+                },
+              }}
+              pageSizeOptions={[5]}
+              disableRowSelectionOnClick
+            />
+          </Box>
+        </Box>
+      </Container>
     </>
   );
 }

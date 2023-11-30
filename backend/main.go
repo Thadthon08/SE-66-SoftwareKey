@@ -42,11 +42,15 @@ func main() {
 	r.POST("/key", Sorftwarekey_controller.CreateSorftwarekey)
 	r.PATCH("/key", Sorftwarekey_controller.UpdateSorftwarekey)
 	r.DELETE("/key/:id", Sorftwarekey_controller.DeleteSorftwarekey)
-	// Run the server
+
 	//Category
 	r.POST("/category", category_controller.CreateCategory)
 	r.GET("/category", category_controller.ListCategory)
 	r.GET("/category/:id", category_controller.GetCategory)
+	//Manufacturer
+	r.POST("/manufacturer", Product_controller.CreateManufacturer)
+	r.GET("/manufacturer", Product_controller.ListManufacturer)
+	r.GET("/manufacturer/:id", Product_controller.GetManufacturer)
 	r.Run()
 
 }

@@ -2,21 +2,19 @@ import * as React from "react";
 import { ThemeProvider, createTheme, styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Menu from "./components/layouts/Menu";
 import Header from "./components/layouts/Header";
-import { Link, Navigate, Route, Router, Routes } from "react-router-dom";
-import LoginPage from "./components/pages/AdminLoginPage";
-import RegisterPage from "./components/pages/RegisterPage";
+import { Link, Route, Routes } from "react-router-dom";
+import Signin_User from "./components/pages/Signin_User";
 import StockCreatePage from "./components/pages/StockCreatePage";
 import StockPage from "./components/pages/StockPage";
 import StockEditPage from "./components/pages/StockEditPage";
 import SoftwareKey from "./components/pages/SoftwareKey";
 import SoftwareKeyCreate from "./components/pages/SoftwareKeyCreate";
 import HomeUser from "./components/pages/HomeUser";
-import { blue, blueGrey, purple, red, common } from "@mui/material/colors";
-
 import "./App.css";
+import SoftwareKeyEdit from "./components/pages/SoftwareKeyEdit";
+import Signin_Admin from "./components/pages/Signin_Admin";
 
 const drawerWidth = 240;
 
@@ -44,6 +42,8 @@ const theme = createTheme({
     MuiDrawer: {
       styleOverrides: {
         paper: {
+          backgroundImage: "url(" + `${process.env.PUBLIC_URL}/images/menu.png` + ")",
+          backgroundRepeat: "repeat",
           width: drawerWidth,
         },
       },
@@ -62,7 +62,8 @@ const theme = createTheme({
       main: "#000",
     },
     background: {
-      default: "#f9f9f9",
+      default: "#181818",
+      // default: "#e5e7e9",
     },
   },
 });
@@ -88,7 +89,12 @@ export default function App() {
   }, []);
 
   if (!token) {
-    return <LoginPage />;
+    return (
+      <Routes>
+        <Route path="/" element={<Signin_User />} />
+        <Route path="/admin" element={<Signin_Admin />} />
+      </Routes>
+    );
   }
 
   const handleDrawerOpen = () => {
@@ -100,7 +106,7 @@ export default function App() {
   };
 
   function routers() {
-    if (localStorage.getItem("position") == "Admin") {
+    if (localStorage.getItem("position") === "Admin") {
       return (
         <ThemeProvider theme={theme}>
           <Box sx={{ display: "flex" }}>
@@ -110,21 +116,20 @@ export default function App() {
             <Main open={open}>
               <DrawerHeader />
               <Routes>
-                {/* <Route path="/" element={<Navigate to="/login" />} /> */}
                 <Route path="/" element={<StockPage />} />
-                <Route path="*" element={<NotFound />} />
-                {/* <Route path="/register" element={<RegisterPage />} /> */}
                 <Route path="/stock" element={<StockPage />} />
                 <Route path="/stock/create" element={<StockCreatePage />} />
                 <Route path="/stock/edit/:id" element={<StockEditPage />} />
-                <Route path="/storage" element={<SoftwareKey />} />
-                <Route path="/storage/create" element={<SoftwareKeyCreate />} />
+                <Route path="/key" element={<SoftwareKey />} />
+                <Route path="/key/edit/:id" element={<SoftwareKeyEdit />} />
+                <Route path="/key/create" element={<SoftwareKeyCreate />} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </Main>
           </Box>
         </ThemeProvider>
       );
-    } else if (localStorage.getItem("position") == "User") {
+    } else if (localStorage.getItem("position") === "User") {
       return (
         <ThemeProvider theme={theme}>
           <Routes>
@@ -142,7 +147,7 @@ export default function App() {
 function NotFound() {
   return (
     <div>
-      <h1>404 -- Not Found</h1>
+      <h1 style={{ color: "red" }}>404 -- Not Found</h1>
       <Link to="/">Go Home</Link>
     </div>
   );

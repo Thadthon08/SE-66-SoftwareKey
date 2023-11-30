@@ -134,7 +134,7 @@ export default function StockEditPage() {
                 label="Name"
                 focused
               />
-              <Field name="CategoryID" focused>
+              <Field name="CategoryID">
                 {({ field, form }: { field: any; form: any }) => (
                   <FormControl
                     focused
@@ -149,10 +149,10 @@ export default function StockEditPage() {
                       {...field}
                       sx={{
                         "& .MuiSelect-root": {
-                          borderColor: "black", // Set the border color directly
+                          borderColor: "black", 
                         },
                       }}
-                      value={field.value || ""} // Set the initial value
+                      value={field.value || ""} 
                       onChange={(e: React.ChangeEvent<{ value: any }>) =>
                         form.setFieldValue("CategoryID", e.target.value)
                       }

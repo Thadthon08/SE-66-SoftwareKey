@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
-import { DataGrid, GridValueGetterParams } from "@mui/x-data-grid";
-import { Typography, Box, Button, Toolbar } from "@mui/material";
+import { DataGrid, GridToolbarQuickFilter, GridValueGetterParams } from "@mui/x-data-grid";
+import { Typography, Box, Button, Toolbar, Container } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { Link, useNavigate } from "react-router-dom";
-import AppBar from "@mui/material/AppBar";
-import { StorageInterface } from "../../../interfaces/IStorage";
-import { DeleteProductByID, GetProduct } from "../../../sevices/http/index";
+import { ProductInterface } from "../../../interfaces/IProduct";
+import { DeleteKeysoftwareByID } from "../../../sevices/http/index";
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { Stack, IconButton } from "@mui/material";
 import { NumericFormat } from "react-number-format";
@@ -13,72 +12,75 @@ import Moment from "react-moment";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Swal from "sweetalert2";
+import { KeysoftwareInterface } from "../../../interfaces/IKeysoftware";
+import { GetKeysoftware } from "../../../sevices/http/index";
 
-export default function KeystoragePage() {
+export default function StockPage() {
   const Navigate = useNavigate();
-  const [product, setProduct] = React.useState<StorageInterface[]>([]);
+  const [product, setProduct] = React.useState<ProductInterface[]>([]);
+
+  function QuickSearchToolbar() {
+    return (
+      <Box
+        sx={{
+          p: 2,
+          pb: 0,
+        }}
+      >
+        <GridToolbarQuickFilter />
+      </Box>
+    );
+  }
 
   const stockColumns: GridColDef[] = [
     {
       headerName: "ID",
-      field: "",
-      width: 50,
+      field: "ID",
+      width: 60,
     },
+    // {
+    //   headerName: "IMAGE",
+    //   field: "Image",
+    //   width: 150,
+    //   renderCell: ({ value }: GridRenderCellParams<String>) => (
+    //     <img src={value} style={{ width: 70, height: 70, borderRadius: "5%" }} />
+    //   ),
+    // },
     {
-      headerName: "IMAGE",
-      field: "",
+      headerName: "Product",
+      field: "Product",
       width: 250,
-      renderCell: ({ value }: GridRenderCellParams<String>) => (
-        <img src={value} style={{ width: 70, height: 70, borderRadius: "5%" }} />
-      ),
+      valueFormatter: (params) => params.value.Name,
     },
     {
-      headerName: "NAME",
-      field: "",
+      headerName: "Key",
+      field: "Key",
       width: 300,
     },
     {
-      headerName: "STOCK",
-      width: 150,
-      field: "",
-      // renderCell: ({ value }: GridRenderCellParams<any>) => (
-      //   <Typography variant="body1">
-      //     <NumberFormat
-      //       value={value}
-      //       displayType={"text"}
-      //       thousandSeparator={true}
-      //       decimalScale={0}
-      //       fixedDecimalScale={true}
-      //     />
-      //   </Typography>
-      // ),
-    },
-    {
-      headerName: "PRICE",
-      field: "",
-      width: 150,
-      renderCell: ({ value }: GridRenderCellParams<Number>) => (
-        <Typography variant="body1">
-          <NumericFormat
-            value={value}
-            displayType={"text"}
-            thousandSeparator={true}
-            decimalScale={2}
-            fixedDecimalScale={true}
-            prefix={"฿"}
-          />
-        </Typography>
-      ),
-    },
-    {
-      headerName: "TIME",
+      headerName: "CreatedAt",
       field: "CreatedAt",
-      width: 170,
+      width: 160,
       renderCell: ({ value }: GridRenderCellParams<any>) => (
         <Typography variant="body1">
           <Moment format="DD/MM/YYYY HH:mm">{value}</Moment>
         </Typography>
       ),
+    },
+    {
+      headerName: "EditedAt",
+      field: "UpdatedAt",
+      width: 160,
+      renderCell: ({ value }: GridRenderCellParams<any>) => (
+        <Typography variant="body1">
+          <Moment format="DD/MM/YYYY HH:mm">{value}</Moment>
+        </Typography>
+      ),
+    },
+    {
+      headerName: "Status",
+      field: "Status",
+      width: 150,
     },
     {
       headerName: "ACTION",
@@ -104,7 +106,7 @@ export default function KeystoragePage() {
                   clearInterval(timerInterval);
                 },
               }).then(() => {
-                window.location.href = "/stock/edit/" + row.ID;
+                window.location.href = "/key/edit/" + row.ID;
               });
             }}
           >
@@ -124,7 +126,7 @@ export default function KeystoragePage() {
                 confirmButtonText: "Yes, delete it!",
               }).then(async (result) => {
                 if (result.isConfirmed) {
-                  let res = await DeleteProductByID(row.ID);
+                  let res = await DeleteKeysoftwareByID(row.ID);
                   if (res.status) {
                     Swal.fire({
                       title: "Deleted!",
@@ -132,7 +134,7 @@ export default function KeystoragePage() {
                       icon: "success",
                     });
                   }
-                  // getProduct();
+                  getKeysoftware();
                 }
               });
             }}
@@ -144,50 +146,69 @@ export default function KeystoragePage() {
     },
   ];
 
-  // const getProduct = async () => {
-  //   let res = await GetProduct();
-  //   if (res) {
-  //     setProduct(res);
-  //   }
-  // };
+  const getKeysoftware = async () => {
+    let res = await GetKeysoftware();
+    if (res) {
+      setProduct(res);
+    }
+  };
 
-  // useEffect(() => {
-  //   getProduct();
-  // }, []);
+  useEffect(() => {
+    getKeysoftware();
+  }, []);
   return (
     <>
-      <AppBar position="static" sx={{ backgroundColor: "#ffffff", marginBottom: 2 }}>
-        <Toolbar variant="dense">
-          <Typography variant="h4" color="black" component="div">
-            KEYSOFTWARE
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Button variant="contained" onClick={() => Navigate("/storage/create")}>
-        <AddIcon />
-        <Typography variant="h6" component="div">
-          AddKey
-        </Typography>
-      </Button>
-      <Box sx={{ width: "100%", marginTop: 2, backgroundColor: "#ffffff" }}>
-        <DataGrid
-          rows={product}
-          rowHeight={75}
-          autoHeight={true}
-          getRowId={(rows) => rows.ID}
-          columns={stockColumns}
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 5,
-              },
-            },
+      <Container maxWidth="xl">
+        <Typography
+          variant="h3"
+          component="div"
+          sx={{
+            color: "#ffff",
+            marginBottom: 2,
+            textShadow: "1px 2px 6px #121212, 0 0 1em #FFFF, 0 0 0.5em #404040",
           }}
-          pageSizeOptions={[5]}
-          checkboxSelection
-          disableRowSelectionOnClick
-        />
-      </Box>
+        >
+          Keysoftware
+        </Typography>
+        <Box
+          sx={{
+            width: "100%",
+            background: "#FFFF",
+            borderRadius: 3,
+            boxShadow: "0 0 9px rgba(228, 230, 235,.7),inset 0 0 9px rgba(228, 230, 235,.7)",
+          }}
+        >
+          <Box sx={{ padding: 2 }}>
+            <Button variant="contained" onClick={() => Navigate("/key/create")}>
+              <AddIcon />
+              <Typography variant="h6" component="div">
+                ADDKEY
+              </Typography>
+            </Button>
+            <DataGrid
+              sx={{
+                height: "70vh",
+                marginTop: 2,
+              }}
+              slots={{ toolbar: QuickSearchToolbar }}
+              rows={product}
+              rowHeight={75}
+              autoHeight={true}
+              getRowId={(rows) => rows.ID}
+              columns={stockColumns}
+              initialState={{
+                pagination: {
+                  paginationModel: {
+                    pageSize: 5,
+                  },
+                },
+              }}
+              pageSizeOptions={[5]}
+              disableRowSelectionOnClick
+            />
+          </Box>
+        </Box>
+      </Container>
     </>
   );
 }

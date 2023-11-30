@@ -1,36 +1,26 @@
 import * as React from "react";
-import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import ShoppingCartSharpIcon from "@mui/icons-material/ShoppingCartSharp";
 import Swal from "sweetalert2";
-import { Avatar, Container, Paper } from "@mui/material";
+import { Avatar, Button, Grid, List, ListItem } from "@mui/material";
 import Carousels from "../../layouts/Carousel/Carousels";
-import { ProductInterface } from "../../../interfaces/IProduct";
-import { GetProduct } from "../../../sevices/http";
 import ShowProduct from "../../layouts/ShowProduct_HOME/ShowProduct";
-import { Link, useNavigate } from "react-router-dom";
 import SearchProduct from "../../layouts/SearchProduct";
+import { Footer } from "antd/es/layout/layout";
 
 export default function Home() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
   const [userID] = React.useState(localStorage.getItem("uid"));
-  const [query, setQuery] = React.useState("");
-  const [searchResults, setSearchResults] = React.useState([]);
-  const Navigate = useNavigate();
   const isMenuOpen = Boolean(anchorEl);
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -143,6 +133,73 @@ export default function Home() {
       <Carousels />
       {/*Show Product*/}
       <ShowProduct />
+      <Footer style={{ backgroundColor: "#3a3b3c", color: "white" }}>
+        <Grid container spacing={2} columns={16}>
+          <Grid xs={5}>
+            <img src={process.env.PUBLIC_URL + "/images/keyhub1.png"} width="160" />
+            <Typography variant="subtitle1" sx={{ marginBottom: 2 }}>
+              ร้านขายคีย์ซอฟต์แวร์ที่แพงที่สุดในโลก
+            </Typography>
+            <Typography variant="subtitle2" sx={{ width: 400 }}>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae dolorum sunt iure, dolore reiciendis
+              molestias eaque molestiae corporis commodi maiores dolor temporibus soluta repellat cupiditate architecto
+              doloribus voluptatibus dolores sint?
+            </Typography>
+          </Grid>
+          <Grid xs={5}>
+            <Typography variant="h5">SITE LINKS</Typography>
+          </Grid>
+          <Grid xs={3}>
+            <Typography variant="h5">Contact us</Typography>
+            <List>
+              <ListItem>
+                <Button href="https://www.facebook.com/profile.php?id=61553421364547" sx={{ color: "white" }}>
+                  <img src={process.env.PUBLIC_URL + "/images/facebook.png"} width={35} style={{ padding: 2 }} />
+                  Facebook
+                </Button>
+              </ListItem>
+              <ListItem>
+                <Button href="https://line.me/th/" sx={{ color: "white" }}>
+                  <img src={process.env.PUBLIC_URL + "/images/line.png"} width={35} style={{ padding: 2 }} />
+                  Line
+                </Button>
+              </ListItem>
+              <ListItem>
+                <Button
+                  href="https://mail.google.com/mail/u/0/#sent/KtbxLvhRXHXsfBWFQnMCWVtSlmCctjLFHL?compose=CllgCHrkWCjNbwvNZLXzBfVVNBVSzhGCsshcKkDPwrJFTKjWqFJLKfCldGZnmnCHPFSfFbvKStg"
+                  sx={{ color: "white" }}
+                >
+                  <img src={process.env.PUBLIC_URL + "/images/gmail.png"} width={35} style={{ padding: 2 }} />
+                  Mail
+                </Button>
+              </ListItem>
+            </List>
+          </Grid>
+          <Grid xs={3}>
+            <Typography variant="h5">Community</Typography>
+            <List>
+              <ListItem>
+                <Button href="https://www.facebook.com/profile.php?id=61553421364547" sx={{ color: "white" }}>
+                  <img src={process.env.PUBLIC_URL + "/images/facebook.png"} width={35} style={{ padding: 2 }} />
+                  Facebook
+                </Button>
+              </ListItem>
+              <ListItem>
+                <Button href="https://discord.gg/dWGY4BMd" sx={{ color: "white" }}>
+                  <img src={process.env.PUBLIC_URL + "/images/discord.png"} width={35} style={{ padding: 2 }} />
+                  Discord
+                </Button>
+              </ListItem>
+              <ListItem>
+                <Button href="https://www.twitch.tv/" sx={{ color: "white" }}>
+                  <img src={process.env.PUBLIC_URL + "/images/twitch.png"} width={35} style={{ padding: 2 }} />
+                  Twitch
+                </Button>
+              </ListItem>
+            </List>
+          </Grid>
+        </Grid>
+      </Footer>
     </>
   );
 }

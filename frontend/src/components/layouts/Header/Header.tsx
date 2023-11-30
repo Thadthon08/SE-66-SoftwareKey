@@ -140,9 +140,9 @@ export default function Header({ open, onDrawerOpen }: HeaderProp) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h5" noWrap component="div">
+          {/* <Typography variant="h5" noWrap component="div">
             KEYHUBPRO
-          </Typography>
+          </Typography> */}
 
           <Box sx={{ flexGrow: 1 }} />
 
