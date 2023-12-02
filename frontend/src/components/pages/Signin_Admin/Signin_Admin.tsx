@@ -139,7 +139,7 @@ function Signin_Admin() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: `url(${process.env.PUBLIC_URL + "/images/bg-login3.jpg"})`,
+            backgroundImage: `url(${process.env.PUBLIC_URL + "/images/bg-admin1.jpg"})`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundPosition: "center",
