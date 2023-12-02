@@ -3,35 +3,16 @@ import { ProductInterface } from "../../interfaces/IProduct";
 
 const apiUrl = "http://localhost:8080";
 
-// async function GetProduct() {
-//   const requestOptions = {
-//     method: "GET",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//   };
-
-//   let res = await fetch(`${apiUrl}/productkey`, requestOptions)
-//     .then((response) => response.json())
-//     .then((res) => {
-//       if (res.data) {
-//         return res.data;
-//       } else {
-//         return false;
-//       }
-//     });
-
-//   return res;
-// }
 async function GetProduct() {
   const requestOptions = {
     method: "GET",
     headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
       "Content-Type": "application/json",
     },
   };
 
-  let res = await fetch(`${apiUrl}/Products`, requestOptions)
+  let res = await fetch(`${apiUrl}/productkey`, requestOptions)
     .then((response) => response.json())
     .then((res) => {
       if (res.data) {
@@ -43,6 +24,24 @@ async function GetProduct() {
 
   return res;
 }
+
+// async function GetProduct() {
+//   const requestOptions = {
+//     method: "GET",
+//   };
+
+//   let res = await fetch(`${apiUrl}/Products`, requestOptions)
+//     .then((response) => response.json())
+//     .then((res) => {
+//       if (res.data) {
+//         return res.data;
+//       } else {
+//         return false;
+//       }
+//     });
+
+//   return res;
+// }
 
 async function CreateProduct(data: ProductInterface) {
   const requestOptions = {
@@ -67,7 +66,7 @@ async function CreateProduct(data: ProductInterface) {
 async function UpdateProduct(data: ProductInterface) {
   const requestOptions = {
     method: "PATCH",
-    headers: { "Content-Type": "application/json" },
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}`, "Content-Type": "application/json" },
     body: JSON.stringify(data),
   };
 
@@ -86,6 +85,9 @@ async function UpdateProduct(data: ProductInterface) {
 async function GetProductById(id: Number) {
   const requestOptions = {
     method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
   };
 
   let res = await fetch(`${apiUrl}/Products/${id}`, requestOptions)
@@ -104,6 +106,9 @@ async function GetProductById(id: Number) {
 async function DeleteProductByID(id: Number | undefined) {
   const requestOptions = {
     method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
   };
 
   let res = await fetch(`${apiUrl}/Products/${id}`, requestOptions)
@@ -123,6 +128,9 @@ async function DeleteProductByID(id: Number | undefined) {
 async function GetUserById(id: Number) {
   const requestOptions = {
     method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
   };
 
   let res = await fetch(`${apiUrl}/User/${id}`, requestOptions)
@@ -141,9 +149,7 @@ async function GetUserById(id: Number) {
 async function GetCategory() {
   const requestOptions = {
     method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}`, "Content-Type": "application/json" },
   };
 
   let res = await fetch(`${apiUrl}/category`, requestOptions)
@@ -182,9 +188,7 @@ async function CreateKeysoftware(data: KeysoftwareInterface) {
 async function GetKeysoftware() {
   const requestOptions = {
     method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}`, "Content-Type": "application/json" },
   };
 
   let res = await fetch(`${apiUrl}/key`, requestOptions)
@@ -202,6 +206,9 @@ async function GetKeysoftware() {
 async function GetKeysoftwareById(id: Number) {
   const requestOptions = {
     method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
   };
 
   let res = await fetch(`${apiUrl}/key/${id}`, requestOptions)
@@ -220,6 +227,9 @@ async function GetKeysoftwareById(id: Number) {
 async function DeleteKeysoftwareByID(id: Number) {
   const requestOptions = {
     method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
   };
 
   let res = await fetch(`${apiUrl}/key/${id}`, requestOptions)
@@ -237,7 +247,7 @@ async function DeleteKeysoftwareByID(id: Number) {
 async function UpdateKeysoftware(data: KeysoftwareInterface) {
   const requestOptions = {
     method: "PATCH",
-    headers: { "Content-Type": "application/json" },
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}`, "Content-Type": "application/json" },
     body: JSON.stringify(data),
   };
 
@@ -257,9 +267,7 @@ async function UpdateKeysoftware(data: KeysoftwareInterface) {
 async function GetManufacturer() {
   const requestOptions = {
     method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}`, "Content-Type": "application/json" },
   };
 
   let res = await fetch(`${apiUrl}/manufacturer`, requestOptions)

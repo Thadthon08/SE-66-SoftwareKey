@@ -9,6 +9,7 @@ import (
 	Product_controller "github.com/Thadthon08/se-66-stock/controller/product"
 	Softwarekey_controller "github.com/Thadthon08/se-66-stock/controller/softwarekey"
 	user_controller "github.com/Thadthon08/se-66-stock/controller/user"
+	"github.com/Thadthon08/se-66-stock/middlewares"
 
 	"github.com/Thadthon08/se-66-stock/entity"
 )
@@ -28,30 +29,38 @@ func main() {
 	r.POST("/login/admin", login_controller.LoginAdmin)
 	r.POST("/admin", admin_controller.CreateAdmin)
 
-	// Admin Routes
-	// r.GET("/productkey", Product_controller.ListProductsJoinKey)
-	//Products
-	r.GET("/Products", Product_controller.ListProducts)
 	r.GET("/search", Product_controller.SearchProducts)
-	r.GET("/Products/:id", Product_controller.GetProduct)
-	r.POST("/Products", Product_controller.CreateProduct)
-	r.PATCH("/Products", Product_controller.UpdateProduct)
-	r.DELETE("/Products/:id", Product_controller.DeleteProduct)
-	//Softwarekey
-	r.GET("/key", Softwarekey_controller.ListSoftwarekeys)
-	r.GET("/key/:id", Softwarekey_controller.GetSoftwarekey)
-	r.POST("/key", Softwarekey_controller.CreateSoftwarekey)
-	r.PATCH("/key", Softwarekey_controller.UpdateSoftwarekey)
-	r.DELETE("/key/:id", Softwarekey_controller.DeleteSoftwarekey)
+	router := r.Group("/")
+	{
+		protected := router.Use(middlewares.Authorizes())
+		{
 
-	//Category
-	r.POST("/category", category_controller.CreateCategory)
-	r.GET("/category", category_controller.ListCategory)
-	r.GET("/category/:id", category_controller.GetCategory)
-	//Manufacturer
-	r.POST("/manufacturer", Product_controller.CreateManufacturer)
-	r.GET("/manufacturer", Product_controller.ListManufacturer)
-	r.GET("/manufacturer/:id", Product_controller.GetManufacturer)
+			// Admin Routes
+			//Products
+			protected.GET("/Products", Product_controller.ListProducts)
+			protected.GET("/productkey", Product_controller.ListProductsWithKeyCount)
+			protected.GET("/Products/:id", Product_controller.GetProduct)
+			protected.POST("/Products", Product_controller.CreateProduct)
+			protected.PATCH("/Products", Product_controller.UpdateProduct)
+			protected.DELETE("/Products/:id", Product_controller.DeleteProduct)
+			//Softwarekey
+			protected.GET("/key", Softwarekey_controller.ListSoftwarekeys)
+			protected.GET("/key/:id", Softwarekey_controller.GetSoftwarekey)
+			protected.POST("/key", Softwarekey_controller.CreateSoftwarekey)
+			protected.PATCH("/key", Softwarekey_controller.UpdateSoftwarekey)
+			protected.DELETE("/key/:id", Softwarekey_controller.DeleteSoftwarekey)
+
+			//Category
+			protected.POST("/category", category_controller.CreateCategory)
+			protected.GET("/category", category_controller.ListCategory)
+			protected.GET("/category/:id", category_controller.GetCategory)
+			//Manufacturer
+			protected.POST("/manufacturer", Product_controller.CreateManufacturer)
+			protected.GET("/manufacturer", Product_controller.ListManufacturer)
+			protected.GET("/manufacturer/:id", Product_controller.GetManufacturer)
+
+		}
+	}
 	r.Run()
 
 }

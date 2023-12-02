@@ -53,7 +53,7 @@ export default function StockPage() {
     {
       headerName: "STOCK",
       width: 150,
-      field: "Stock",
+      field: "KeyCount",
       renderCell: ({ value }: GridRenderCellParams<any>) => (
         <Typography variant="body1">
           <NumericFormat

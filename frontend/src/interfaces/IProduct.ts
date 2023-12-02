@@ -17,4 +17,6 @@ export interface ProductInterface {
 
   ManufacturerID?: number;
   Manufacturer?: ManufacturerInterface;
+
+  KeyCount?: number;
 }

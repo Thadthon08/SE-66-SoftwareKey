@@ -74,6 +74,27 @@ func ListProducts(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": Products})
 }
 
+func ListProductsWithKeyCount(c *gin.Context) {
+	var productsWithKeyCount []struct {
+		entity.Product
+		KeyCount int
+	}
+
+	query := `
+        SELECT products.*, COUNT(softwarekeys.product_id) AS key_count
+        FROM products
+        LEFT JOIN softwarekeys ON products.id = softwarekeys.product_id
+        GROUP BY products.id
+    `
+
+	if err := entity.DB().Raw(query).Scan(&productsWithKeyCount).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": productsWithKeyCount})
+}
+
 // DELETE /Product/:id
 func DeleteProduct(c *gin.Context) {
 	id := c.Param("id")
@@ -127,5 +148,3 @@ func SearchProducts(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"data": products})
 }
-
-

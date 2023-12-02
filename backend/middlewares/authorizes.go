@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/gin-gonic/gin"
 	"github.com/Thadthon08/se-66-stock/service"
+	"github.com/gin-gonic/gin"
 )
 
 // validates token // เพื่อยืนยันว่ามี token จริง
@@ -38,7 +38,6 @@ func Authorizes() gin.HandlerFunc {
 			return
 
 		}
-		// c.Set("email", claims.Email)
 		c.Next()
 	}
 
