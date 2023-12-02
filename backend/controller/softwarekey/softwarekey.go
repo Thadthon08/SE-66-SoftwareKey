@@ -7,27 +7,27 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-//POST /Sorftwarekey
+//POST /Softwarekey
 
-func CreateSorftwarekey(c *gin.Context) {
-	var Sorftwarekey entity.Sorftwarekey
+func CreateSoftwarekey(c *gin.Context) {
+	var Softwarekey entity.Softwarekey
 	var Product entity.Product
 
-	// bind เข้าตัวแปร Sorftwarekey
-	if err := c.ShouldBindJSON(&Sorftwarekey); err != nil {
+	// bind เข้าตัวแปร Softwarekey
+	if err := c.ShouldBindJSON(&Softwarekey); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"errorb": err.Error()})
 		return
 	}
 	//ค้าหา Product ด้วย id
-	if tx := entity.DB().Where("id = ?", Sorftwarekey.ProductID).First(&Product); tx.RowsAffected == 0 {
+	if tx := entity.DB().Where("id = ?", Softwarekey.ProductID).First(&Product); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Product not found"})
 		return
 	}
 
-	//สร้าง Sorftwarekey
-	u := entity.Sorftwarekey{
+	//สร้าง Softwarekey
+	u := entity.Softwarekey{
 		Product: Product, //โยงความสัมพันะ์กับ Entity Product
-		Key:     Sorftwarekey.Key,
+		Key:     Softwarekey.Key,
 		Status:  true,
 	}
 
@@ -40,56 +40,56 @@ func CreateSorftwarekey(c *gin.Context) {
 
 }
 
-// GET /Sorftwarekey/:id
+// GET /Softwarekey/:id
 
-func GetSorftwarekey(c *gin.Context) {
-	var Sorftwarekeys entity.Sorftwarekey
+func GetSoftwarekey(c *gin.Context) {
+	var Softwarekeys entity.Softwarekey
 	id := c.Param("id")
-	if err := entity.DB().Preload("Product").Raw("SELECT * FROM Sorftwarekeys WHERE id = ?", id).Find(&Sorftwarekeys).Error; err != nil {
+	if err := entity.DB().Preload("Product").Raw("SELECT * FROM Softwarekeys WHERE id = ?", id).Find(&Softwarekeys).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": Sorftwarekeys})
+	c.JSON(http.StatusOK, gin.H{"data": Softwarekeys})
 }
 
-// GET /Sorftwarekey
-func ListSorftwarekeys(c *gin.Context) {
-	var Sorftwarekeys []entity.Sorftwarekey
-	if err := entity.DB().Preload("Product").Raw("SELECT * FROM Sorftwarekeys").Find(&Sorftwarekeys).Error; err != nil {
+// GET /Softwarekey
+func ListSoftwarekeys(c *gin.Context) {
+	var Softwarekeys []entity.Softwarekey
+	if err := entity.DB().Preload("Product").Raw("SELECT * FROM Softwarekeys").Find(&Softwarekeys).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": Sorftwarekeys})
+	c.JSON(http.StatusOK, gin.H{"data": Softwarekeys})
 }
 
-// DELETE /Sorftwarekey/:id
-func DeleteSorftwarekey(c *gin.Context) {
+// DELETE /Softwarekey/:id
+func DeleteSoftwarekey(c *gin.Context) {
 	id := c.Param("id")
-	if tx := entity.DB().Exec("DELETE FROM Sorftwarekeys WHERE id = ?", id); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Sorftwarekey not found"})
+	if tx := entity.DB().Exec("DELETE FROM Softwarekeys WHERE id = ?", id); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Softwarekey not found"})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": id})
 }
 
-// PACTH /Sorftwarekeys
-func UpdateSorftwarekey(c *gin.Context) {
-	var Sorftwarekey entity.Sorftwarekey
-	var result entity.Sorftwarekey
-	if err := c.ShouldBindJSON(&Sorftwarekey); err != nil {
+// PACTH /Softwarekeys
+func UpdateSoftwarekey(c *gin.Context) {
+	var Softwarekey entity.Softwarekey
+	var result entity.Softwarekey
+	if err := c.ShouldBindJSON(&Softwarekey); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	//ค้นหา Sorftwarekey ด้วย id
-	if tx := entity.DB().Where("id = ?", Sorftwarekey.ID).First(&result); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Sorftwarekey not found"})
+	//ค้นหา Softwarekey ด้วย id
+	if tx := entity.DB().Where("id = ?", Softwarekey.ID).First(&result); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Softwarekey not found"})
 		return
 	}
-	if err := entity.DB().Save(&Sorftwarekey).Error; err != nil {
+	if err := entity.DB().Save(&Softwarekey).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": &Sorftwarekey})
+	c.JSON(http.StatusOK, gin.H{"data": &Softwarekey})
 }
 
 // GET /Product/:id

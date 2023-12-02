@@ -3,6 +3,26 @@ import { ProductInterface } from "../../interfaces/IProduct";
 
 const apiUrl = "http://localhost:8080";
 
+// async function GetProduct() {
+//   const requestOptions = {
+//     method: "GET",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//   };
+
+//   let res = await fetch(`${apiUrl}/productkey`, requestOptions)
+//     .then((response) => response.json())
+//     .then((res) => {
+//       if (res.data) {
+//         return res.data;
+//       } else {
+//         return false;
+//       }
+//     });
+
+//   return res;
+// }
 async function GetProduct() {
   const requestOptions = {
     method: "GET",
@@ -234,6 +254,27 @@ async function UpdateKeysoftware(data: KeysoftwareInterface) {
   return res;
 }
 
+async function GetManufacturer() {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`${apiUrl}/manufacturer`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
 export {
   CreateProduct,
   GetProduct,
@@ -247,4 +288,5 @@ export {
   DeleteKeysoftwareByID,
   GetKeysoftwareById,
   UpdateKeysoftware,
+  GetManufacturer,
 };

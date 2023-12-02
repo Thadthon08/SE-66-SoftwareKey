@@ -7,7 +7,7 @@ import (
 	category_controller "github.com/Thadthon08/se-66-stock/controller/category"
 	login_controller "github.com/Thadthon08/se-66-stock/controller/login"
 	Product_controller "github.com/Thadthon08/se-66-stock/controller/product"
-	Sorftwarekey_controller "github.com/Thadthon08/se-66-stock/controller/softwarekey"
+	Softwarekey_controller "github.com/Thadthon08/se-66-stock/controller/softwarekey"
 	user_controller "github.com/Thadthon08/se-66-stock/controller/user"
 
 	"github.com/Thadthon08/se-66-stock/entity"
@@ -29,6 +29,7 @@ func main() {
 	r.POST("/admin", admin_controller.CreateAdmin)
 
 	// Admin Routes
+	// r.GET("/productkey", Product_controller.ListProductsJoinKey)
 	//Products
 	r.GET("/Products", Product_controller.ListProducts)
 	r.GET("/search", Product_controller.SearchProducts)
@@ -36,12 +37,12 @@ func main() {
 	r.POST("/Products", Product_controller.CreateProduct)
 	r.PATCH("/Products", Product_controller.UpdateProduct)
 	r.DELETE("/Products/:id", Product_controller.DeleteProduct)
-	//Sorftwarekey
-	r.GET("/key", Sorftwarekey_controller.ListSorftwarekeys)
-	r.GET("/key/:id", Sorftwarekey_controller.GetSorftwarekey)
-	r.POST("/key", Sorftwarekey_controller.CreateSorftwarekey)
-	r.PATCH("/key", Sorftwarekey_controller.UpdateSorftwarekey)
-	r.DELETE("/key/:id", Sorftwarekey_controller.DeleteSorftwarekey)
+	//Softwarekey
+	r.GET("/key", Softwarekey_controller.ListSoftwarekeys)
+	r.GET("/key/:id", Softwarekey_controller.GetSoftwarekey)
+	r.POST("/key", Softwarekey_controller.CreateSoftwarekey)
+	r.PATCH("/key", Softwarekey_controller.UpdateSoftwarekey)
+	r.DELETE("/key/:id", Softwarekey_controller.DeleteSoftwarekey)
 
 	//Category
 	r.POST("/category", category_controller.CreateCategory)

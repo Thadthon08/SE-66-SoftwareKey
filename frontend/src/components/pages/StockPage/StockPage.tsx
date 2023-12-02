@@ -53,18 +53,18 @@ export default function StockPage() {
     {
       headerName: "STOCK",
       width: 150,
-      field: "*",
-      // renderCell: ({ value }: GridRenderCellParams<any>) => (
-      //   <Typography variant="body1">
-      //     <NumberFormat
-      //       value={value}
-      //       displayType={"text"}
-      //       thousandSeparator={true}
-      //       decimalScale={0}
-      //       fixedDecimalScale={true}
-      //     />
-      //   </Typography>
-      // ),
+      field: "Stock",
+      renderCell: ({ value }: GridRenderCellParams<any>) => (
+        <Typography variant="body1">
+          <NumericFormat
+            value={value}
+            displayType={"text"}
+            thousandSeparator={true}
+            decimalScale={0}
+            fixedDecimalScale={true}
+          />
+        </Typography>
+      ),
     },
     {
       headerName: "PRICE",

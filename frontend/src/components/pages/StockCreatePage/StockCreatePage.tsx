@@ -18,14 +18,16 @@ import AddIcon from "@mui/icons-material/Add";
 import { TextField } from "formik-material-ui";
 import { Link, useNavigate } from "react-router-dom";
 import { ProductInterface } from "../../../interfaces/IProduct";
-import { CreateProduct, GetCategory } from "../../../sevices/http/index";
+import { CreateProduct, GetCategory, GetManufacturer } from "../../../sevices/http/index";
 import Swal from "sweetalert2";
 import { CategoryInterface } from "../../../interfaces/ICategory";
 import Select from "@mui/material/Select";
+import { ManufacturerInterface } from "../../../interfaces/IManufacturer";
 
 export default function StockCreatePage() {
   const [picture, setPicture] = useState<ImageUpload>();
   const [category, setCategory] = React.useState<CategoryInterface[]>([]);
+  const [manufacturer, setManufacturer] = React.useState<ManufacturerInterface[]>([]);
   const Navigate = useNavigate();
 
   const ProductInterface: any = {
@@ -33,6 +35,7 @@ export default function StockCreatePage() {
     Price: "",
     Desciption: "",
     CategoryID: "",
+    ManufacturerID: "",
   };
 
   const getCategory = async () => {
@@ -42,9 +45,17 @@ export default function StockCreatePage() {
       setCategory(res);
     }
   };
+  const getManufacturer = async () => {
+    let res = await GetManufacturer();
+    console.log(res);
+    if (res) {
+      setManufacturer(res);
+    }
+  };
 
   React.useEffect(() => {
     getCategory();
+    getManufacturer();
   }, []);
 
   const handleSubmit = async (values: ProductInterface) => {
@@ -89,6 +100,7 @@ export default function StockCreatePage() {
           if (!values.Name) err.Name = "กรุณากรอกชื่อ !";
           if (!values.Price) err.Price = "กรุณากรอกราคา !";
           if (!values.CategoryID) err.CategoryID = "กรุณาเลือกประเภท !";
+          if (!values.ManufacturerID) err.ManufacturerID = "กรุณาบริษัทผู้ผลิต !";
           if (!picture) err.picture = "กรุณาอัปโหลดรูปภาw !";
           return err;
         }}
@@ -105,7 +117,7 @@ export default function StockCreatePage() {
               <Field name="CategoryID">
                 {({ field, form }: { field: any; form: any }) => (
                   <FormControl
-                    sx={{ width: 250, marginTop: 1 }}
+                    sx={{ width: 250, marginTop: 1.5 }}
                     error={form.touched.CategoryID && form.errors.CategoryID}
                   >
                     <InputLabel id="demo-simple-select-label">Category</InputLabel>
@@ -114,7 +126,7 @@ export default function StockCreatePage() {
                       id="demo-simple-select"
                       label="Category"
                       {...field}
-                      onChange={(e: React.ChangeEvent<{ value: any }>) =>
+                      onChange={(e: React.ChangeEvent<{ value: ProductInterface }>) =>
                         form.setFieldValue("CategoryID", e.target.value)
                       }
                     >
@@ -132,38 +144,38 @@ export default function StockCreatePage() {
                   </FormControl>
                 )}
               </Field>
-              <Field name="*">
+              <Field name="ManufacturerID">
                 {({ field, form }: { field: any; form: any }) => (
                   <FormControl
-                    sx={{ width: 250, marginTop: 1, marginLeft: 2.2 }}
-                    error={form.touched.CategoryID && form.errors.CategoryID}
+                    sx={{ width: 250, marginTop: 1.5, marginLeft: 2.2 }}
+                    error={form.touched.ManufacturerID && form.errors.ManufacturerID}
                   >
                     <InputLabel id="demo-simple-select-label">Company</InputLabel>
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      label="Category"
+                      label="Company"
                       {...field}
-                      onChange={(e: React.ChangeEvent<{ value: any }>) =>
-                        form.setFieldValue("CategoryID", e.target.value)
+                      onChange={(e: React.ChangeEvent<{ value: ProductInterface }>) =>
+                        form.setFieldValue("ManufacturerID", e.target.value)
                       }
                     >
-                      {category.map((item) => (
+                      {manufacturer.map((item) => (
                         <MenuItem key={item?.ID} value={item?.ID}>
                           {item?.Name}
                         </MenuItem>
                       ))}
                     </Select>
-                    {form.touched.CategoryID && form.errors.CategoryID ? (
+                    {form.touched.ManufacturerID && form.errors.ManufacturerID ? (
                       <FormHelperText sx={{ fontSize: 12, padding: 0.2, color: "red" }}>
-                        {form.errors.CategoryID}
+                        {form.errors.ManufacturerID}
                       </FormHelperText>
                     ) : null}
                   </FormControl>
                 )}
               </Field>
               <Field
-                style={{ marginTop: 10 }}
+                style={{ marginTop: 11 }}
                 fullWidth
                 component={TextField}
                 name="Price"
@@ -171,7 +183,7 @@ export default function StockCreatePage() {
                 label="Price"
               />
               <Field
-                style={{ marginTop: 10, color: "#000" }}
+                style={{ marginTop: 11, color: "#000" }}
                 fullWidth
                 component={TextField}
                 multiline
@@ -182,7 +194,7 @@ export default function StockCreatePage() {
               />
               <Field name="Image">
                 {() => (
-                  <div style={{ marginTop: 10 }}>
+                  <div style={{ marginTop: 11 }}>
                     <Upload maxCount={1} multiple={false} listType="picture-card" onChange={normImage}>
                       <div>
                         <AddIcon />

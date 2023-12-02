@@ -11,35 +11,41 @@ func CreateProduct(c *gin.Context) {
 	var Product entity.Product
 	var Admin entity.Admin
 	var Category entity.Category
+	var Manufacturer entity.Manufacturer
 
 	// bind เข้าตัวแปร Product
 	if err := c.ShouldBindJSON(&Product); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"errorb": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	if tx := entity.DB().Where("id = ?", Product.AdminID).First(&Admin); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Admin user not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Admin not found"})
 		return
 	}
 	if tx := entity.DB().Where("id = ?", Product.CategoryID).First(&Category); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Category user not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Category not found"})
+		return
+	}
+	if tx := entity.DB().Where("id = ?", Product.ManufacturerID).First(&Manufacturer); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Manufacturer not found"})
 		return
 	}
 
 	//สร้าง Product
 	u := entity.Product{
-		Admin:      Admin,
-		Category:   Category,
-		Name:       Product.Name,
-		Price:      Product.Price,
-		Desciption: Product.Desciption,
-		Image:      Product.Image,
+		Admin:        Admin,
+		Category:     Category,
+		Manufacturer: Manufacturer,
+		Name:         Product.Name,
+		Price:        Product.Price,
+		Desciption:   Product.Desciption,
+		Image:        Product.Image,
 	}
 
 	//บันทึก
 	if err := entity.DB().Create(&u).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"errorC": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": u})
@@ -121,3 +127,5 @@ func SearchProducts(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"data": products})
 }
+
+

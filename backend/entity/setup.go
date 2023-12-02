@@ -26,7 +26,7 @@ func SetupDatabase() {
 
 	// Migrate the schema
 
-	database.AutoMigrate(&Product{}, &Sorftwarekey{}, &User{}, &Admin{}, &Category{}, &Manufacturer{})
+	database.AutoMigrate(&Product{}, &Softwarekey{}, &User{}, &Admin{}, &Category{}, &Manufacturer{})
 
 	db = database
 

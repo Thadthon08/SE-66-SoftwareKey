@@ -43,7 +43,7 @@ const theme = createTheme({
       styleOverrides: {
         paper: {
           backgroundImage: "url(" + `${process.env.PUBLIC_URL}/images/menu.png` + ")",
-          backgroundRepeat: "repeat",
+          backgroundRepeat: "no-repeat",
           width: drawerWidth,
         },
       },

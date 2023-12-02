@@ -22,16 +22,18 @@ import AddIcon from "@mui/icons-material/Add";
 import { TextField } from "formik-material-ui";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { ProductInterface } from "../../../interfaces/IProduct";
-import { GetCategory, GetProductById, UpdateProduct } from "../../../sevices/http/index";
+import { GetCategory, GetManufacturer, GetProductById, UpdateProduct } from "../../../sevices/http/index";
 import { CategoryInterface } from "../../../interfaces/ICategory";
 import Select from "@mui/material/Select";
 
 import Swal from "sweetalert2";
+import { ManufacturerInterface } from "../../../interfaces/IManufacturer";
 
 export default function StockEditPage() {
   const [picture, setPicture] = useState<ImageUpload>();
   const [product, setProduct] = useState<ProductInterface>();
   const [category, setCategory] = React.useState<CategoryInterface[]>([]);
+  const [manufacturer, setManufacturer] = React.useState<ManufacturerInterface[]>([]);
   const Navigate = useNavigate();
 
   let { id } = useParams();
@@ -49,10 +51,18 @@ export default function StockEditPage() {
       setCategory(res);
     }
   };
+  const getManufacturer = async () => {
+    let res = await GetManufacturer();
+    console.log(res);
+    if (res) {
+      setManufacturer(res);
+    }
+  };
 
   React.useEffect(() => {
     getProductById();
     getCategory();
+    getManufacturer();
   }, []);
 
   const handleSubmit = async (values: ProductInterface) => {
@@ -99,6 +109,7 @@ export default function StockEditPage() {
     Desciption: product?.Desciption,
     Image: product?.Image,
     CategoryID: product?.CategoryID,
+    ManufacturerID: product?.ManufacturerID,
   };
 
   return (
@@ -110,6 +121,7 @@ export default function StockEditPage() {
           if (!values.Price) err.Price = "กรุณากรอกราคา !";
           if (!picture) err.picture = "กรุณาอัปโหลดรูปภาw !";
           if (!values.CategoryID) err.CategoryID = "กรุณาเลือกประเภท !";
+          if (!values.ManufacturerID) err.ManufacturerID = "กรุณาบริษัทผู้ผลิต !";
           {
             console.log(values.CategoryID);
           }
@@ -126,7 +138,7 @@ export default function StockEditPage() {
                 Edit Product
               </Typography>
               <Field
-                style={{ marginTop: 16 }}
+                style={{ marginTop: 11 }}
                 fullWidth
                 component={TextField}
                 name="Name"
@@ -149,11 +161,11 @@ export default function StockEditPage() {
                       {...field}
                       sx={{
                         "& .MuiSelect-root": {
-                          borderColor: "black", 
+                          borderColor: "black",
                         },
                       }}
-                      value={field.value || ""} 
-                      onChange={(e: React.ChangeEvent<{ value: any }>) =>
+                      value={field.value || ""}
+                      onChange={(e: React.ChangeEvent<{ value: ProductInterface }>) =>
                         form.setFieldValue("CategoryID", e.target.value)
                       }
                     >
@@ -171,9 +183,46 @@ export default function StockEditPage() {
                   </FormControl>
                 )}
               </Field>
-
+              <Field name="ManufacturerID">
+                {({ field, form }: { field: any; form: any }) => (
+                  <FormControl
+                    focused
+                    sx={{ width: 250, marginTop: 2, marginLeft: 2.2 }}
+                    error={form.touched.ManufacturerID && form.errors.ManufacturerID}
+                  >
+                    <InputLabel id="demo-simple-select-label">Company</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      label="Company"
+                      {...field}
+                      sx={{
+                        "& .MuiSelect-root": {
+                          borderColor: "black",
+                        },
+                      }}
+                      value={field.value || ""}
+                      onChange={(e: React.ChangeEvent<{ value: ProductInterface }>) =>
+                        form.setFieldValue("ManufacturerID", e.target.value)
+                      }
+                    >
+                      {manufacturer.map((item) => (
+                        <MenuItem key={item?.ID} value={item?.ID}>
+                          {item?.Name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    {form.touched.ManufacturerID && form.errors.ManufacturerID ? (
+                      <FormHelperText sx={{ fontSize: 12, padding: 0.2, color: "red" }}>
+                        {form.errors.ManufacturerID}
+                      </FormHelperText>
+                    ) : null}
+                  </FormControl>
+                )}
+              </Field>
               <Field
-                style={{ marginTop: 16, marginLeft: 16, width: 250 }}
+                style={{ marginTop: 16 }}
+                fullWidth
                 component={TextField}
                 name="Price"
                 type="number"

@@ -1,5 +1,6 @@
 import { AdminsInterface } from "./IAdmin";
 import { CategoryInterface } from "./ICategory";
+import { ManufacturerInterface } from "./IManufacturer";
 
 export interface ProductInterface {
   ID?: number;
@@ -13,4 +14,7 @@ export interface ProductInterface {
 
   CategoryID?: number;
   Category?: CategoryInterface;
+
+  ManufacturerID?: number;
+  Manufacturer?: ManufacturerInterface;
 }
