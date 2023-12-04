@@ -21,7 +21,7 @@ func CreateAdmin(c *gin.Context) {
 
 	// if tx := entity.DB().Where("email = ?", admin.Email).First(&emailCheck); !(tx.RowsAffected == 0) {
 	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "This email is used"})
-	// 	return
+	// 	return 55
 	// }
 
 	hashPassword, err := bcrypt.GenerateFromPassword([]byte(admin.Password), 12)
