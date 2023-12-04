@@ -198,7 +198,7 @@ export default function StockPage() {
             </Button>
             <DataGrid
               sx={{
-                height: "70vh",
+                // height: "70vh",
                 marginTop: 2,
               }}
               slots={{ toolbar: QuickSearchToolbar }}

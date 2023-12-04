@@ -10,7 +10,7 @@ type Product struct {
 	Image          string `gorm:"type:longtext"`
 	Price          float64
 	Desciption     string
-	Softwarekey   []Softwarekey `gorm:"foreignKey:ProductID"`
+	Softwarekey    []Softwarekey `gorm:"foreignKey:ProductID"`
 	CategoryID     *uint
 	Category       Category `gorm:"references:id"`
 	AdminID        *uint
@@ -20,10 +20,10 @@ type Product struct {
 }
 type Softwarekey struct {
 	gorm.Model
-	Key       string `gorm:"uniqueIndex" valid:"มีKeyนี้อยู่แล้ว,required~กรุณากรอกใหม่อีกครั้ง"`
-	Status    bool
-	ProductID *uint
-	Product   Product `gorm:"references:id"`
+	Key        string `gorm:"uniqueIndex" valid:"มีKeyนี้อยู่แล้ว,required~กรุณากรอกใหม่อีกครั้ง"`
+	Status_Key bool
+	ProductID  *uint
+	Product    Product `gorm:"references:id"`
 }
 
 type User struct {

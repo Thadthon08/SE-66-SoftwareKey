@@ -38,14 +38,6 @@ export default function StockPage() {
       field: "ID",
       width: 60,
     },
-    // {
-    //   headerName: "IMAGE",
-    //   field: "Image",
-    //   width: 150,
-    //   renderCell: ({ value }: GridRenderCellParams<String>) => (
-    //     <img src={value} style={{ width: 70, height: 70, borderRadius: "5%" }} />
-    //   ),
-    // },
     {
       headerName: "Product",
       field: "Product",
@@ -79,7 +71,7 @@ export default function StockPage() {
     },
     {
       headerName: "Status",
-      field: "Status",
+      field: "Status_Key",
       width: 150,
     },
     {

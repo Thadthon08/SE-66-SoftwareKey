@@ -81,10 +81,10 @@ func ListProductsWithKeyCount(c *gin.Context) {
 	}
 
 	query := `
-        SELECT products.*, COUNT(softwarekeys.product_id) AS key_count
-        FROM products
-        LEFT JOIN softwarekeys ON products.id = softwarekeys.product_id
-        GROUP BY products.id
+       SELECT products.*, COUNT(CASE WHEN softwarekeys.status_key = true THEN 1 ELSE NULL END) AS key_count
+		FROM products
+		LEFT JOIN softwarekeys ON products.id = softwarekeys.product_id
+		GROUP BY products.id;
     `
 
 	if err := entity.DB().Raw(query).Scan(&productsWithKeyCount).Error; err != nil {

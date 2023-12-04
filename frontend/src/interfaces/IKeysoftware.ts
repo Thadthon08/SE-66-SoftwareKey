@@ -2,7 +2,7 @@ import { ProductInterface } from "./IProduct";
 export interface KeysoftwareInterface {
   ID?: number;
   Key?: string;
-  Status?: boolean;
+  Status_Key?: boolean;
   ProductID?: number;
   Product?: ProductInterface;
 }
