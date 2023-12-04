@@ -28,7 +28,7 @@ func CreateSoftwarekey(c *gin.Context) {
 	u := entity.Softwarekey{
 		Product: Product, //โยงความสัมพันะ์กับ Entity Product
 		Key:     Softwarekey.Key,
-		Status:  true,
+		Status_Key:  true,
 	}
 
 	//บันทึก

@@ -60,9 +60,9 @@ export default function ShowProduct() {
                 margin: 2,
                 boxShadow: "0 0 9px rgba(228, 230, 235,.7),inset 0 0 9px rgba(228, 230, 235,.7)",
                 transition: "height 0.5s",
-                // "&:hover": {
-                //   height: 350,
-                // },
+                "&:hover": {
+                  height: 350,
+                },
               }}
             >
               <CardMedia sx={{ width: 150, height: 160, margin: "auto", marginTop: 2 }} image={product.Image} />

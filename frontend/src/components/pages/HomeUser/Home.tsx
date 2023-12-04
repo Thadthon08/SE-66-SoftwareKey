@@ -140,7 +140,7 @@ export default function Home() {
             <Typography variant="subtitle1" sx={{ marginBottom: 2 }}>
               ร้านขายคีย์ซอฟต์แวร์ที่แพงที่สุดในโลก
             </Typography>
-            <Typography variant="subtitle2" sx={{ width: 400 }}>
+            <Typography variant="subtitle2">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae dolorum sunt iure, dolore reiciendis
               molestias eaque molestiae corporis commodi maiores dolor temporibus soluta repellat cupiditate architecto
               doloribus voluptatibus dolores sint?

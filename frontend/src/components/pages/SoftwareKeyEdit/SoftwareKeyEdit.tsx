@@ -77,7 +77,7 @@ export default function SoftwareKeyEit() {
   const initialValues: KeysoftwareInterface = {
     ID: key?.ID,
     Key: key?.Key,
-    Status: key?.Status,
+    Status_Key: key?.Status_Key,
     ProductID: key?.ProductID,
   };
 
