@@ -1,6 +1,8 @@
 package entity
 
 import (
+	"time"
+
 	"gorm.io/gorm"
 )
 
@@ -50,4 +52,48 @@ type Manufacturer struct {
 	gorm.Model
 	Name    string    `gorm:"uniqueIndex" valid:"มีชื่อนี้อยู่แล้ว,required~กรุณากรอกชื่อใหม่อีกครั้ง"`
 	Product []Product `gorm:"foreignKey:ManufacturerID"`
+}
+
+type Status struct {
+	gorm.Model
+	Name    string    `gorm:"uniqueIndex" valid:"มีชื่อนี้อยู่แล้ว,required~กรุณากรอกชื่อใหม่อีกครั้ง"`
+	Payment []Payment `gorm:"foreignKey:StatusID"`
+}
+
+type Payment struct {
+	gorm.Model
+
+	CartID *uint
+	Cart   Cart `gorm:"references:id"`
+
+	StatusID *uint
+	Status   Status `gorm:"references:id"`
+
+	UserID *uint
+	User   User `gorm:"references:id"`
+
+	AdminID *uint
+	Admin   Admin `gorm:"references:id"`
+
+	Image string `gorm:"type:longtext"`
+
+	Date time.Time
+}
+
+type Voucher struct {
+	gorm.Model
+	Name string `gorm:"uniqueIndex" valid:"มีชื่อนี้อยู่แล้ว,required~กรุณากรอกชื่อใหม่อีกครั้ง"`
+	Cart []Cart `gorm:"foreignKey:VoucherID"`
+}
+
+type Cart struct {
+	gorm.Model
+
+	UserID *uint
+	User   User
+
+	VoucherID *uint
+	Voucher   Voucher
+
+	Total float64
 }

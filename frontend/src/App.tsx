@@ -15,6 +15,11 @@ import HomeUser from "./components/pages/HomeUser";
 import "./App.css";
 import SoftwareKeyEdit from "./components/pages/SoftwareKeyEdit";
 import Signin_Admin from "./components/pages/Signin_Admin";
+import SingleProduct from "./components/pages/SingleProduct";
+import HeaderUser from "./components/layouts/Header_User/HeaderUser";
+import AboutUs from "./components/pages/AboutUs";
+import Footer from "./components/layouts/Footer";
+import AllProducts from "./components/pages/AllProducts";
 
 const drawerWidth = 240;
 
@@ -60,6 +65,9 @@ const theme = createTheme({
   palette: {
     primary: {
       main: "#000",
+    },
+    secondary: {
+      main: "#FFFF",
     },
     background: {
       default: "#181818",
@@ -132,11 +140,16 @@ export default function App() {
     } else if (localStorage.getItem("position") === "User") {
       return (
         <ThemeProvider theme={theme}>
+          <HeaderUser />
           <Routes>
             <Route path="/" element={<HomeUser />} />
             <Route path="/home" element={<HomeUser />} />
+            <Route path="/product/:id" element={<SingleProduct />} />
+            <Route path="/products" element={<AllProducts />} />
+            <Route path="/Howtopay" element={<AboutUs />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <Footer />
         </ThemeProvider>
       );
     }
