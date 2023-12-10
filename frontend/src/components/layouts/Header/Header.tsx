@@ -65,6 +65,7 @@ export default function Header({ open, onDrawerOpen }: HeaderProp) {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
+  const name = localStorage.getItem("name");
 
   const handleDrawerOpen = () => {
     onDrawerOpen();
@@ -140,16 +141,11 @@ export default function Header({ open, onDrawerOpen }: HeaderProp) {
           >
             <MenuIcon />
           </IconButton>
-          {/* <Typography variant="h5" noWrap component="div">
-            KEYHUBPRO
-          </Typography> */}
-
           <Box sx={{ flexGrow: 1 }} />
 
           <Typography variant="h6" noWrap component="div" fontWeight="300">
-            Updated 2023
+            Hello admin {name} !
           </Typography>
-
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
