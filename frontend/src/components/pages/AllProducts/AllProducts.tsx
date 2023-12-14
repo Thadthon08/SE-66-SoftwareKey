@@ -10,7 +10,7 @@ export default function AllProducts() {
       <CssBaseline />
       <Container maxWidth="lg" sx={{ padding: 5 }}>
         <Breadcrumbs aria-label="breadcrumb" sx={{ color: "white" }}>
-          <Link underline="hover" sx={{ display: "flex", alignItems: "center" }} color="inherit" href="/">
+          <Link underline="hover" sx={{ display: "flex", alignItems: "center" }} color="inherit" href="/home">
             <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
             Home
           </Link>

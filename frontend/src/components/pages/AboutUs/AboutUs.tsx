@@ -12,7 +12,6 @@ const DemoPaper = styled(Paper)(({ theme }) => ({
   width: 500,
   padding: theme.spacing(2),
   ...theme.typography.body2,
-  // textAlign: "center",
 }));
 
 export default function AboutUs() {
@@ -22,7 +21,7 @@ export default function AboutUs() {
         <CssBaseline />
         <Container maxWidth="lg" sx={{ padding: 5 }}>
           <Breadcrumbs aria-label="breadcrumb" sx={{ color: "white" }}>
-            <Link underline="hover" sx={{ display: "flex", alignItems: "center" }} color="inherit" href="/">
+            <Link underline="hover" sx={{ display: "flex", alignItems: "center" }} color="inherit" href="/home">
               <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
               Home
             </Link>
@@ -38,7 +37,7 @@ export default function AboutUs() {
             <Typography variant="h5" noWrap component="div" fontWeight="600" sx={{ color: "#eab308", marginBottom: 3 }}>
               <Typewriter
                 options={{
-                  strings: ["KeyHub Pro Shop"],
+                  strings: ["o💸KeyHub Pro Shop💸o"],
                   autoStart: true,
                   loop: true,
                 }}
@@ -51,7 +50,7 @@ export default function AboutUs() {
                   sx={{ boxShadow: "0 0 9px rgba(234, 179, 8,.9),inset 0 0 9px rgba(228, 230, 235,.7)" }}
                 >
                   <Typography variant="h5" component="div" sx={{ margin: 0.5, textAlign: "center" }}>
-                    วิธีการชำระเงิน
+                    💸วิธีการชำระเงิน💸
                   </Typography>
                   <Box sx={{ width: 450 }}>
                     <Typography variant="subtitle1" component="div" sx={{ margin: 0.5 }}>
@@ -103,7 +102,7 @@ export default function AboutUs() {
                 <Typography variant="h6" component="div" sx={{ color: "white", marginBottom: 1.5 }}>
                   สามารถดูคลิป Viedo วิธีการชำระเงินได้ที่นี่ !
                 </Typography>
-                <ReactPlayer controls url="https://youtu.be/-Plkae_yezo?si=Pgv0vq5UF2hxDvOZ" />
+                <ReactPlayer controls url="https://www.youtube.com/watch?v=d1sm_7lOm3k" />
               </Grid>
             </Grid>
           </Box>

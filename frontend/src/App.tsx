@@ -20,6 +20,7 @@ import HeaderUser from "./components/layouts/Header_User/HeaderUser";
 import AboutUs from "./components/pages/AboutUs";
 import Footer from "./components/layouts/Footer";
 import AllProducts from "./components/pages/AllProducts";
+import Dashboard from "./components/pages/Dashboard";
 
 const drawerWidth = 240;
 
@@ -142,7 +143,7 @@ export default function App() {
         <ThemeProvider theme={theme}>
           <HeaderUser />
           <Routes>
-            <Route path="/" element={<HomeUser />} />
+            <Route path="/" element={<Dashboard />} />
             <Route path="/home" element={<HomeUser />} />
             <Route path="/product/:id" element={<SingleProduct />} />
             <Route path="/products" element={<AllProducts />} />

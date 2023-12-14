@@ -11,11 +11,11 @@ export default function footer() {
       <Grid container spacing={2} columns={16}>
         <Grid item xs={1.5}></Grid>
         <Grid item xs={4.5}>
-          <img src={process.env.PUBLIC_URL + "/images/keyhub1.png"} width="160" />
+          <img src={process.env.PUBLIC_URL + "/images/keyhub1.png"} width="40%" />
           <Typography variant="subtitle1" sx={{ marginBottom: 2 }}>
             ร้านขายคีย์ซอฟต์แวร์ที่แพงที่สุดในโลก
           </Typography>
-          <Typography variant="subtitle2" width="350px">
+          <Typography variant="subtitle2" width="80%">
             เว็บไซต์ KeyHubPro เป็นเพียงตัวแทนจำหน่ายเท่านั้น
             ไม่มีส่วนเกี่ยวข้องกับองค์กรหรือบุคคลใดๆที่แอบอ้างใช้ชื่อบัญชีธนาคาร ร้าน KeyHubPro
             โปรดระวังมิจฉาชีพแอบอ้างบัญชีเราเพื่อหลอกให้ผู้อื่นจ่ายค่าสินค้าแทน!
@@ -28,7 +28,16 @@ export default function footer() {
               <Typography
                 variant="subtitle2"
                 sx={{ marginBottom: 2, marginLeft: 2, cursor: "pointer" }}
-                onClick={() => (window.location.href = "/products")}
+                onClick={() => (window.location.href = "/home")}
+              >
+                หน้าหลัก
+              </Typography>
+            </ListItemText>
+            <ListItemText>
+              <Typography
+                variant="subtitle2"
+                sx={{ marginBottom: 2, marginLeft: 2, cursor: "pointer" }}
+                onClick={() => (window.location.href = "/Products")}
               >
                 สินค้าทั้งหมด
               </Typography>
@@ -62,7 +71,7 @@ export default function footer() {
             </ListItemText>
           </List>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={5}>
           <Typography variant="h6">How to activate your Software code</Typography>
           <List>
             <ListItemText>

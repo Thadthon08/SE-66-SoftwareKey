@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useActionData, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ProductInterface } from "../../../interfaces/IProduct";
 import { GetProductById } from "../../../sevices/http";
 import { Content } from "antd/es/layout/layout";
@@ -8,9 +8,12 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
-import { Button, CardActions, Divider } from "@mui/material";
+import { Breadcrumbs, Button, CardActions, CardMedia, Container, CssBaseline, Divider, Link } from "@mui/material";
 import ShoppingCartSharpIcon from "@mui/icons-material/ShoppingCartSharp";
 import { NumericFormat } from "react-number-format";
+import HomeIcon from "@mui/icons-material/Home";
+import AddBusinessSharpIcon from "@mui/icons-material/AddBusinessSharp";
+import InterestsSharpIcon from "@mui/icons-material/InterestsSharp";
 
 export default function SingleProduct() {
   const { id } = useParams();
@@ -29,69 +32,110 @@ export default function SingleProduct() {
   }, []);
 
   return (
-    <Content style={{ backgroundColor: "#242526", height: "100vh", paddingTop: "5%" }}>
-      {product ? (
-        <Card
-          sx={{
-            display: "flex",
-            width: "45%",
-            margin: "auto",
-            padding: "15px",
-            boxShadow: "0 0 9px rgba(228, 230, 235,.7),inset 0 0 9px rgba(228, 230, 235,.7)",
-          }}
-        >
-          <img src={product.Image} alt={product.Name} style={{ width: "100%", height: "90%" }} />
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <CardContent sx={{ flex: "1 0 auto" }}>
-              <Typography component="div" variant="h4">
+    <Content style={{ backgroundColor: "#242526" }}>
+      <CssBaseline />
+      <Container maxWidth="lg" sx={{ padding: 5 }}>
+        {product ? (
+          <div>
+            <Breadcrumbs aria-label="breadcrumb" sx={{ color: "white", paddingBottom: 3 }}>
+              <Link underline="hover" sx={{ display: "flex", alignItems: "center" }} color="inherit" href="/home">
+                <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+                Home
+              </Link>
+              <Link underline="hover" sx={{ display: "flex", alignItems: "center" }} color="inherit" href="/home">
+                <InterestsSharpIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+                {product.CategoryID}
+              </Link>
+              <Typography sx={{ display: "flex", alignItems: "center" }} color="#eab308">
+                {/* <AddBusinessSharpIcon sx={{ mr: 0.5 }} fontSize="inherit" /> */}
                 {product.Name}
               </Typography>
-              <Typography component="div" variant="h5">
-                <NumericFormat
-                  value={product.Price}
-                  displayType={"text"}
-                  thousandSeparator={true}
-                  decimalScale={2}
-                  fixedDecimalScale={true}
-                  prefix={"฿"}
-                />
-              </Typography>
-              <Typography
-                variant="subtitle2"
-                color="text.secondary"
-                component="div"
-                sx={{ width: "70%", padding: "7px" }}
-              >
-                {product.Desciption}
-              </Typography>
-              <Divider />
-              <Typography component="div" variant="subtitle1">
-                Categories : <span style={{ color: "red" }}>{product.CategoryID}</span>
-              </Typography>
-              <Typography component="div" variant="subtitle1">
-                Stock : <span style={{ color: "red" }}>{product.CategoryID}</span>
-              </Typography>
-            </CardContent>
-            <CardActions sx={{ textAlign: "center", justifyContent: "center" }}>
-              <Button variant="contained" sx={{ backgroundColor: "#primary", width: "50%", padding: 1.2 }}>
-                <ShoppingCartSharpIcon />
-                ADD TO CART
-              </Button>
-              <Button
-                size="medium"
-                sx={{ border: "1px solid #000", width: "50%", padding: 1.2 }}
-                onClick={() => {
-                  Navigate("/");
+            </Breadcrumbs>
+            <Card
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                width: "65%",
+                margin: "auto",
+                padding: "15px",
+                boxShadow: "0 0 9px rgba(228, 230, 235,.7),inset 0 0 9px rgba(228, 230, 235,.7)",
+              }}
+            >
+              <CardMedia
+                sx={{
+                  width: "100%",
+                  height: 300,
+                  margin: "auto",
+                  marginY: 3,
                 }}
               >
-                Back
-              </Button>
-            </CardActions>
-          </Box>
-        </Card>
-      ) : (
-        <div>ไม่มีสินค้านี้....</div>
-      )}
+                <img
+                  src={product.Image}
+                  alt={product.Name}
+                  style={{
+                    objectFit: "contain",
+                    objectPosition: "center",
+                    width: "100%",
+                    height: "100%",
+                  }}
+                />
+              </CardMedia>
+              <CardContent sx={{ ml: 3.5 }}>
+                <Typography component="div" variant="h4">
+                  {product.Name}
+                </Typography>
+                <Typography component="div" variant="h5" color="red" sx={{ pb: 2 }}>
+                  <NumericFormat
+                    value={product.Price}
+                    displayType={"text"}
+                    thousandSeparator={true}
+                    decimalScale={2}
+                    fixedDecimalScale={true}
+                    prefix={"฿ "}
+                  />{" "}
+                  💸💸💸
+                </Typography>
+                <Divider />
+                <Typography variant="subtitle1" color="text.secondary" component="div">
+                  Description :
+                </Typography>
+                <Typography
+                  variant="subtitle2"
+                  color="text.secondary"
+                  component="div"
+                  sx={{ width: "90%", p: "0 0 14px 14px" }}
+                >
+                  {product.Desciption}
+                </Typography>
+                <Divider />
+                <Typography component="div" variant="h6" sx={{ pt: 1.5 }}>
+                  Categories : <span style={{ color: "red" }}>{product.CategoryID}</span>
+                </Typography>
+                <Typography component="div" variant="h6">
+                  Stock : <span style={{ color: "red" }}>{product.CategoryID}</span>
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button variant="contained" sx={{ backgroundColor: "#primary", width: "50%", p: 1.2 }}>
+                  <ShoppingCartSharpIcon />
+                  ADD TO CART
+                </Button>
+                <Button
+                  size="medium"
+                  sx={{ border: "1px solid #000", width: "50%", p: 1.2 }}
+                  onClick={() => {
+                    Navigate(-1);
+                  }}
+                >
+                  Back
+                </Button>
+              </CardActions>
+            </Card>
+          </div>
+        ) : (
+          <div>ไม่มีสินค้านี้....</div>
+        )}
+      </Container>
     </Content>
   );
 }

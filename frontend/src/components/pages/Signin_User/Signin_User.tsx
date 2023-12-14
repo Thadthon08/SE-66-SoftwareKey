@@ -23,8 +23,6 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
 const theme = createTheme();
 
 function Signin_User() {
-
-
   const [signin, setSignin] = useState<Partial<SigninUserInterface>>({});
   const [signinAdmin, setSigninAdmin] = useState<Partial<SigninUserInterface>>({});
   const [success, setSuccess] = useState(false);
@@ -34,7 +32,6 @@ function Signin_User() {
   const handleClickOpen = () => {
     setOpen(true);
   };
-
 
   async function LoginUser(data: SigninUserInterface) {
     const apiUrl = "http://localhost:8080";
@@ -68,7 +65,6 @@ function Signin_User() {
     setSignin({ ...signin, [id]: value });
   };
 
-
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === "clickaway") {
       return;
@@ -88,7 +84,6 @@ function Signin_User() {
       setError(true);
     }
   };
-
 
   return (
     <ThemeProvider
@@ -144,7 +139,7 @@ function Signin_User() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: `url(${process.env.PUBLIC_URL + "/images/bg-login3.jpg"})`,
+            backgroundImage: `url(${process.env.PUBLIC_URL + "/images/bg.jpg"})`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundPosition: "center",

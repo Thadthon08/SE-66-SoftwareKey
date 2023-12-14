@@ -72,7 +72,7 @@ export default function StockPage() {
     {
       headerName: "Status",
       field: "Status_Key",
-      width: 150,
+      width: 100,
     },
     {
       headerName: "ACTION",

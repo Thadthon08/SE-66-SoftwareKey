@@ -11,12 +11,13 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import ShoppingCartSharpIcon from "@mui/icons-material/ShoppingCartSharp";
 import Swal from "sweetalert2";
-import { Avatar, Button, Grid, List, ListItem } from "@mui/material";
+import { Avatar, Button} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AddBusinessSharpIcon from "@mui/icons-material/AddBusinessSharp";
 import InterestsSharpIcon from "@mui/icons-material/InterestsSharp";
 import NewspaperSharp from "@mui/icons-material/NewspaperSharp";
 import MenuBookIcon from "@mui/icons-material/MenuBookSharp";
+import HomeIcon from "@mui/icons-material/Home";
 
 export default function HeaderUser() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -88,7 +89,7 @@ export default function HeaderUser() {
             component="div"
             sx={{ display: { xs: "none", sm: "block", cursor: "pointer" } }}
             onClick={() => {
-              window.location.href = "/home";
+              window.location.href = "/";
             }}
           >
             KEYHUBPRO
@@ -127,6 +128,22 @@ export default function HeaderUser() {
           variant="dense"
           sx={{ backgroundColor: "#101010", display: "flex", justifyContent: "center", textAlign: "center" }}
         >
+          <Button
+            href="/home"
+            variant="text"
+            sx={{
+              color: "#ffff",
+              flexGrow: 0.1,
+              fontSize: "16px",
+              "&:hover": {
+                borderRadius: 0,
+                borderBottom: "1px solid white",
+              },
+            }}
+          >
+            <HomeIcon sx={{ mr: 0.5 }} fontSize="medium" />
+            หน้าหลัก
+          </Button>
           <Button
             href="/products"
             variant="text"

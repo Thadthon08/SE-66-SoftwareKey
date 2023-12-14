@@ -3,11 +3,10 @@ import { styled, useTheme } from "@mui/material/styles";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import AccountCircle from "@mui/icons-material/AccountCircle";
+import Typewriter from "typewriter-effect";
 import MailIcon from "@mui/icons-material/Mail";
 import { Avatar, Badge, Box, Menu, MenuItem } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -142,9 +141,17 @@ export default function Header({ open, onDrawerOpen }: HeaderProp) {
             <MenuIcon />
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
-
-          <Typography variant="h6" noWrap component="div" fontWeight="300">
-            Hello admin {name} !
+          <Typography variant="h6" noWrap component="div" fontWeight="300" marginRight={1}>
+            <p>Welcome</p>
+          </Typography>
+          <Typography variant="h6" noWrap component="div" fontWeight="300" sx={{ color: "#eab308" }}>
+            <Typewriter
+              options={{
+                strings: ["Admin! 🤖", "To 💸Keyhub Pro💸"],
+                autoStart: true,
+                loop: true,
+              }}
+            />
           </Typography>
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">

@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
+import { Image } from "antd";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -127,14 +128,33 @@ export default function ShowProduct() {
                   width: 275,
                   height: 325,
                   margin: 2,
-                  boxShadow: "0 0 9px rgba(228, 230, 235,.7),inset 0 0 9px rgba(228, 230, 235,.7)",
-                  transition: "height 0.4s",
-                  // "&:hover": {
-                  //   height: 330,
-                  // },
+                  boxShadow: "0px 0px 9px rgba(228, 230, 235,.7),inset 0 0 9px rgba(228, 230, 235,.7)",
+                  transition: "transform 0.4s",
+                  "&:hover": {
+                    // height: 330,
+                    transform: "translateY(-0.45em)",
+                  },
                 }}
               >
-                <CardMedia sx={{ width: 150, height: 160, margin: "auto", marginTop: 2 }} image={product.Image} />
+                <CardMedia
+                  sx={{
+                    width: 150,
+                    height: 150,
+                    margin: "auto",
+                    marginTop: 2,
+                  }}
+                >
+                  <img
+                    src={product.Image}
+                    alt={product.Name}
+                    style={{
+                      objectFit: "contain",
+                      objectPosition: "center",
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                </CardMedia>
                 <CardContent>
                   <Typography
                     gutterBottom
@@ -179,7 +199,20 @@ export default function ShowProduct() {
             ))}
         </Container>
         <Box sx={{ display: "flex", justifyContent: "center", padding: 2 }}>
-          <Button variant="contained" disableElevation sx={{ width: 300, fontSize: 20 }} onClick={showMoreItem}>
+          <Button
+            variant="contained"
+            disableElevation
+            sx={{
+              width: 300,
+              fontSize: 20,
+              transition: "transform 0.4s",
+              "&:hover": {
+                boxShadow: "0 0.5em 0.5em -0.4em black",
+                transform: "translateY(-0.25em)",
+              },
+            }}
+            onClick={showMoreItem}
+          >
             View More
           </Button>
         </Box>

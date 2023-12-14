@@ -29,6 +29,7 @@
     "formik-material-ui": "^4.0.0-alpha.2",
     "formik-mui": "^5.0.0-alpha.0",
     "global": "^4.4.0",
+    "material-ui-dropzone": "^3.5.0",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",

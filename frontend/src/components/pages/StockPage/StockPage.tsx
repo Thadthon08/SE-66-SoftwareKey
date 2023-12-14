@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { DataGrid, GridToolbarQuickFilter, GridValueGetterParams } from "@mui/x-data-grid";
-import { Typography, Box, Button, Toolbar, Container } from "@mui/material";
+import { Typography, Box, Button, Toolbar, Container, CardMedia } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { Link, useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
@@ -42,7 +42,23 @@ export default function StockPage() {
       field: "Image",
       width: 150,
       renderCell: ({ value }: GridRenderCellParams<String>) => (
-        <img src={value} style={{ width: 70, height: 70, borderRadius: "5%" }} />
+        <CardMedia
+          sx={{
+            height: 55,
+            marginTop: 2,
+          }}
+        >
+          <img
+            src={value}
+            alt={value.Name}
+            style={{
+              objectFit: "contain",
+              objectPosition: "center",
+              width: "100%",
+              height: "100%",
+            }}
+          />
+        </CardMedia>
       ),
     },
     {
