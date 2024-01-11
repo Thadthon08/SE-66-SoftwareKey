@@ -8,10 +8,10 @@ import (
 
 type Product struct {
 	gorm.Model
-	Name           string `gorm:"uniqueIndex" valid:"มีสิ้นค้านี้อยู่แล้ว,required~กรุณากรอกชื่อใหม่อีกครั้ง"`
+	Name           string `gorm:"uniqueIndex" valid:"maxstringlength(30)~Name must not more than 30 character,required~Please Enter your Product Name"`
 	Image          string `gorm:"type:longtext"`
-	Price          float64
-	Desciption     string
+	Price          float64 `valid:"range(0|100000)~Price over range"`
+	Desciption     string  `valid:"maxstringlength(400)~Description ความยาวไม่เกิน 400 ตัวอักษร"`
 	Softwarekey    []Softwarekey `gorm:"foreignKey:ProductID"`
 	CategoryID     *uint
 	Category       Category `gorm:"references:id"`
@@ -22,7 +22,7 @@ type Product struct {
 }
 type Softwarekey struct {
 	gorm.Model
-	Key        string `gorm:"uniqueIndex" valid:"มีKeyนี้อยู่แล้ว,required~กรุณากรอกใหม่อีกครั้ง"`
+	Key        string `gorm:"uniqueIndex" `
 	Status_Key bool
 	ProductID  *uint
 	Product    Product `gorm:"references:id"`
@@ -30,33 +30,33 @@ type Softwarekey struct {
 
 type User struct {
 	gorm.Model
-	Email           string `gorm:"uniqueIndex" valid:"email~รูปแบบ email ไม่ถูกต้อง,required~กรุณากรอก email"`
+	Email           string `gorm:"uniqueIndex" `
 	Password        string
 	Profile_Picture string `gorm:"type:longtext"`
 }
 type Admin struct {
 	gorm.Model
-	Email           string `gorm:"uniqueIndex" valid:"email~รูปแบบ email ไม่ถูกต้อง,required~กรุณากรอก email"`
+	Email           string `gorm:"uniqueIndex"`
 	Password        string
-	Name            string    `gorm:"uniqueIndex" valid:"มีUserนี้อยู่แล้ว,required~กรุณากรอกชื่อใหม่อีกครั้ง"`
+	Name            string    `gorm:"uniqueIndex" `
 	Profile_Picture string    `gorm:"type:longtext"`
 	Product         []Product `gorm:"foreignKey:AdminID"`
 }
 type Category struct {
 	gorm.Model
-	Name    string    `gorm:"uniqueIndex" valid:"มีชื่อนี้อยู่แล้ว,required~กรุณากรอกชื่อใหม่อีกครั้ง"`
+	Name    string    `gorm:"uniqueIndex" `
 	Product []Product `gorm:"foreignKey:CategoryID"`
 }
 
 type Manufacturer struct {
 	gorm.Model
-	Name    string    `gorm:"uniqueIndex" valid:"มีชื่อนี้อยู่แล้ว,required~กรุณากรอกชื่อใหม่อีกครั้ง"`
+	Name    string    `gorm:"uniqueIndex"`
 	Product []Product `gorm:"foreignKey:ManufacturerID"`
 }
 
 type Status struct {
 	gorm.Model
-	Name    string    `gorm:"uniqueIndex" valid:"มีชื่อนี้อยู่แล้ว,required~กรุณากรอกชื่อใหม่อีกครั้ง"`
+	Name    string    `gorm:"uniqueIndex"`
 	Payment []Payment `gorm:"foreignKey:StatusID"`
 }
 
@@ -82,7 +82,7 @@ type Payment struct {
 
 type Voucher struct {
 	gorm.Model
-	Name string `gorm:"uniqueIndex" valid:"มีชื่อนี้อยู่แล้ว,required~กรุณากรอกชื่อใหม่อีกครั้ง"`
+	Name string `gorm:"uniqueIndex"`
 	Cart []Cart `gorm:"foreignKey:VoucherID"`
 }
 
@@ -96,4 +96,10 @@ type Cart struct {
 	Voucher   Voucher
 
 	Total float64
+}
+type Publicrelations struct {
+	gorm.Model
+	Section int
+	Artcles string
+	Image   string `gorm:"type:longtext"`
 }

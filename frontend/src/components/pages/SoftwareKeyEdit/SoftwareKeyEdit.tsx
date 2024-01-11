@@ -89,7 +89,7 @@ export default function SoftwareKeyEit() {
       <Container maxWidth="xl" sx={{ padding: 3 }}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item xs={5}>
-            <img src={process.env.PUBLIC_URL + "/images/edit.png"} width="100%" />
+            <img src={process.env.PUBLIC_URL + "/images/dev7.png"} width="100%" />
           </Grid>
           <Grid item xs={6}>
             <Formik

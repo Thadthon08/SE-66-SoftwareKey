@@ -12,6 +12,7 @@ import (
 func CreateUser(c *gin.Context) {
 	var user entity.User
 	var emailCheck entity.User
+	
 
 	if err := c.ShouldBindJSON(&user); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

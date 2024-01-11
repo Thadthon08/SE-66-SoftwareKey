@@ -94,7 +94,7 @@ export default function StockCreatePage() {
     } else {
       Swal.fire({
         title: "ไม่สามารถเพิ่มสินค้าได้",
-        text: " กรุณาตรวจสอบความถูกต้อง!",
+        text: res.message,
         icon: "error",
         timer: 4000,
       });
@@ -118,7 +118,7 @@ export default function StockCreatePage() {
       <Container maxWidth="xl" sx={{ padding: 3 }}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item xs={5}>
-            <img src={process.env.PUBLIC_URL + "/images/Box.png"} width="100%" />
+            <img src={process.env.PUBLIC_URL + "/images/dev5.png"} width="100%" />
           </Grid>
           <Grid item xs={6}>
             <Formik
@@ -128,7 +128,7 @@ export default function StockCreatePage() {
                 if (!values.Price) err.Price = "กรุณากรอกราคา !";
                 if (!values.CategoryID) err.CategoryID = "กรุณาเลือกประเภท !";
                 if (!values.ManufacturerID) err.ManufacturerID = "กรุณาบริษัทผู้ผลิต !";
-                if (!imageString) err.imageString = "กรุณาอัปโหลดรูปภาw !";
+                if (!imageString) err.imageString = "กรุณาอัปโหลดรูปภาพ !";
                 return err;
               }}
               initialValues={ProductInterface}
