@@ -11,7 +11,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import ShoppingCartSharpIcon from "@mui/icons-material/ShoppingCartSharp";
 import Swal from "sweetalert2";
-import { Avatar, Button} from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AddBusinessSharpIcon from "@mui/icons-material/AddBusinessSharp";
 import InterestsSharpIcon from "@mui/icons-material/InterestsSharp";
@@ -23,7 +23,26 @@ export default function HeaderUser() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
+  const [count, setCount] = React.useState(0);
   const Navigate = useNavigate();
+
+  const getitemCount = async () => {
+    const apiUrl = "http://localhost:8080/lenbasket/" + String(localStorage.getItem("uid"));
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+    };
+    fetch(apiUrl, requestOptions)
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.item_count) {
+          setCount(res.item_count);
+        }
+      });
+  };
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -79,6 +98,13 @@ export default function HeaderUser() {
       <MenuItem onClick={Signout}>Sign Out</MenuItem>
     </Menu>
   );
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      await getitemCount();
+    };
+    fetchData();
+  }, [getitemCount]);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -96,8 +122,8 @@ export default function HeaderUser() {
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton size="large" aria-label="show 4 new cart" color="inherit">
-              <Badge badgeContent={0} color="error">
+            <IconButton size="large" aria-label="show 4 new cart" color="inherit" onClick={() => Navigate("/cart")}>
+              <Badge badgeContent={count} color="error">
                 <ShoppingCartSharpIcon />
               </Badge>
             </IconButton>

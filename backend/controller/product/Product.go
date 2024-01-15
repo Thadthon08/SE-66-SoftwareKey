@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/Thadthon08/se-66-stock/entity"
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 )
 
@@ -43,6 +44,10 @@ func CreateProduct(c *gin.Context) {
 		Image:        Product.Image,
 	}
 
+	if _, err := govalidator.ValidateStruct(u); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 	//บันทึก
 	if err := entity.DB().Create(&u).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

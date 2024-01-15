@@ -16,7 +16,8 @@ import { useNavigate } from "react-router-dom";
 import { alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import { Image } from "antd";
+import Swal from "sweetalert2";
+import { message } from "antd";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -64,6 +65,49 @@ export default function ShowProduct() {
   const [loadmore, setLoadmore] = React.useState(6);
   const [search, setSearch] = React.useState("");
   const Navigate = useNavigate();
+
+  const AddToBasket = (productId: Number) => {
+    let data = {
+      UserID: Number(localStorage.getItem("uid")),
+      VoucherID: 1,
+      ProductID: productId,
+      Total: 0,
+    };
+    console.log(data);
+    const apiUrl = "http://localhost:8080/baskets"; //ส่งขอบันทึก
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+
+    fetch(apiUrl, requestOptions) //ขอการส่งกลับมาเช็คว่าบันทึกสำเร็จมั้ย
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.data) {
+          Swal.fire({
+            title: "Success",
+            text: "เพิ่มสินค้าในตะกร้าสำเร็จ !",
+            icon: "success",
+            timer: 2000,
+          }).then((result) => {
+            if (result) {
+              window.location.reload();
+            }
+          });
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: res.message,
+            icon: "error",
+            timer: 2000,
+          });
+        }
+      });
+  };
 
   const showMoreItem = () => {
     setLoadmore((prevValue) => prevValue + 3);
@@ -181,7 +225,11 @@ export default function ShowProduct() {
                   </Typography>
                 </CardContent>
                 <CardActions sx={{ textAlign: "center", justifyContent: "center" }}>
-                  <Button variant="contained" sx={{ backgroundColor: "#primary" }}>
+                  <Button
+                    variant="contained"
+                    sx={{ backgroundColor: "#primary" }}
+                    onClick={() => product.ID && AddToBasket(product.ID)}
+                  >
                     <ShoppingCartSharpIcon />
                     ADD TO CART
                   </Button>

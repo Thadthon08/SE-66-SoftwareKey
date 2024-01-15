@@ -21,6 +21,7 @@ import AboutUs from "./components/pages/AboutUs";
 import Footer from "./components/layouts/Footer";
 import AllProducts from "./components/pages/AllProducts";
 import Dashboard from "./components/pages/Dashboard";
+import CartUI from "./components/pages/Cart/CartUI";
 
 const drawerWidth = 240;
 
@@ -49,7 +50,7 @@ const theme = createTheme({
       styleOverrides: {
         paper: {
           backgroundImage: "url(" + `${process.env.PUBLIC_URL}/images/menu.png` + ")",
-          backgroundSize:"cover",
+          backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           width: drawerWidth,
         },
@@ -149,6 +150,7 @@ export default function App() {
             <Route path="/product/:id" element={<SingleProduct />} />
             <Route path="/products" element={<AllProducts />} />
             <Route path="/Howtopay" element={<AboutUs />} />
+            <Route path="/cart" element={<CartUI />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />

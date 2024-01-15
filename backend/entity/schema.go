@@ -8,18 +8,34 @@ import (
 
 type Product struct {
 	gorm.Model
-	Name           string `gorm:"uniqueIndex" valid:"maxstringlength(30)~Name must not more than 30 character,required~Please Enter your Product Name"`
-	Image          string `gorm:"type:longtext"`
+	Name           string  `gorm:"uniqueIndex" valid:"maxstringlength(30)~Name must not more than 30 character,required~Please Enter your Product Name"`
+	Image          string  `gorm:"type:longtext"`
 	Price          float64 `valid:"range(0|100000)~Price over range"`
 	Desciption     string  `valid:"maxstringlength(400)~Description ความยาวไม่เกิน 400 ตัวอักษร"`
-	Softwarekey    []Softwarekey `gorm:"foreignKey:ProductID"`
 	CategoryID     *uint
 	Category       Category `gorm:"references:id"`
 	AdminID        *uint
 	Admin          Admin `gorm:"references:id"`
 	ManufacturerID *uint
-	Manufacturer   Manufacturer `gorm:"references:id"`
+	Manufacturer   Manufacturer  `gorm:"references:id"`
+	Softwarekey    []Softwarekey `gorm:"foreignKey:ProductID"`
+	Cart           []Cart        `gorm:"foreignKey:ProductID"`
 }
+type Cart struct {
+	gorm.Model
+
+	UserID *uint
+	User   User `gorm:"references:id"`
+
+	// VoucherID *uint
+	// Voucher   Voucher `gorm:"references:id"`
+
+	ProductID *uint
+	Product   Product `gorm:"references:id"`
+
+	Total float64
+}
+
 type Softwarekey struct {
 	gorm.Model
 	Key        string `gorm:"uniqueIndex" `
@@ -33,6 +49,7 @@ type User struct {
 	Email           string `gorm:"uniqueIndex" `
 	Password        string
 	Profile_Picture string `gorm:"type:longtext"`
+	Cart            []Cart `gorm:"foreignKey:UserID"`
 }
 type Admin struct {
 	gorm.Model
@@ -86,17 +103,6 @@ type Voucher struct {
 	Cart []Cart `gorm:"foreignKey:VoucherID"`
 }
 
-type Cart struct {
-	gorm.Model
-
-	UserID *uint
-	User   User
-
-	VoucherID *uint
-	Voucher   Voucher
-
-	Total float64
-}
 type Publicrelations struct {
 	gorm.Model
 	Section int

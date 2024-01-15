@@ -194,7 +194,7 @@ export default function StockCreatePage() {
                           <InputLabel id="demo-simple-select-label">Company</InputLabel>
                           <Select
                             labelId="demo-simple-select-label"
-                            id="demo-simple-select"
+                            id="ManufacturerID"
                             label="Company"
                             {...field}
                             onChange={(e: React.ChangeEvent<{ value: ProductInterface }>) =>
@@ -253,7 +253,7 @@ export default function StockCreatePage() {
                       sx={{ marginTop: 1.5 }}
                     >
                       Upload Image
-                      <VisuallyHiddenInput type="file" />
+                      <VisuallyHiddenInput type="file" name="Image" />
                     </Button>
                   </CardContent>
                   <CardActions>

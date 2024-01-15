@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	admin_controller "github.com/Thadthon08/se-66-stock/controller/admin"
+	cart_controller "github.com/Thadthon08/se-66-stock/controller/cart"
 	category_controller "github.com/Thadthon08/se-66-stock/controller/category"
 	login_controller "github.com/Thadthon08/se-66-stock/controller/login"
 	Product_controller "github.com/Thadthon08/se-66-stock/controller/product"
@@ -30,6 +31,18 @@ func main() {
 	r.POST("/admin", admin_controller.CreateAdmin)
 
 	r.GET("/search", Product_controller.SearchProducts)
+	r.GET("/Products", Product_controller.ListProducts)
+	r.GET("/productkey", Product_controller.ListProductsWithKeyCount)
+	r.GET("/Products/:id", Product_controller.GetProduct)
+	r.POST("/Products", Product_controller.CreateProduct)
+	r.PATCH("/Products", Product_controller.UpdateProduct)
+	r.DELETE("/Products/:id", Product_controller.DeleteProduct)
+
+	r.GET("/baskets", cart_controller.ListCart)
+	r.POST("/baskets", cart_controller.CraeteCart)
+	r.GET("/basket/:id", cart_controller.GetCart)
+	r.GET("/lenbasket/:id", cart_controller.GetCartByID)
+	r.GET("/userbasket/:uid", cart_controller.GetUserCart)
 	router := r.Group("/")
 	{
 		protected := router.Use(middlewares.Authorizes())
@@ -37,12 +50,12 @@ func main() {
 
 			// Admin Routes
 			//Products
-			protected.GET("/Products", Product_controller.ListProducts)
-			protected.GET("/productkey", Product_controller.ListProductsWithKeyCount)
-			protected.GET("/Products/:id", Product_controller.GetProduct)
-			protected.POST("/Products", Product_controller.CreateProduct)
-			protected.PATCH("/Products", Product_controller.UpdateProduct)
-			protected.DELETE("/Products/:id", Product_controller.DeleteProduct)
+			// protected.GET("/Products", Product_controller.ListProducts)
+			// protected.GET("/productkey", Product_controller.ListProductsWithKeyCount)
+			// protected.GET("/Products/:id", Product_controller.GetProduct)
+			// protected.POST("/Products", Product_controller.CreateProduct)
+			// protected.PATCH("/Products", Product_controller.UpdateProduct)
+			// protected.DELETE("/Products/:id", Product_controller.DeleteProduct)
 			//Softwarekey
 			protected.GET("/key", Softwarekey_controller.ListSoftwarekeys)
 			protected.GET("/key/:id", Softwarekey_controller.GetSoftwarekey)
