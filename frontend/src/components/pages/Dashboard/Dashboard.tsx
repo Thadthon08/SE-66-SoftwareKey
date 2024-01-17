@@ -16,7 +16,15 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function Dashboard() {
   const username = localStorage.getItem("name");
   return (
-    <Content style={{ backgroundColor: "#242526" }}>
+    <Content
+      style={{
+        backgroundColor: "#242526",
+        height: "92vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <CssBaseline />
       <Container maxWidth="lg" sx={{ padding: 5 }}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>

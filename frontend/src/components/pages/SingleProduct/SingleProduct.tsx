@@ -14,6 +14,7 @@ import { NumericFormat } from "react-number-format";
 import HomeIcon from "@mui/icons-material/Home";
 import AddBusinessSharpIcon from "@mui/icons-material/AddBusinessSharp";
 import InterestsSharpIcon from "@mui/icons-material/InterestsSharp";
+import Swal from "sweetalert2";
 
 export default function SingleProduct() {
   const { id } = useParams();
@@ -25,6 +26,49 @@ export default function SingleProduct() {
     if (res) {
       setProduct(res);
     }
+  };
+
+  const AddToBasket = () => {
+    let data = {
+      UserID: Number(localStorage.getItem("uid")),
+      VoucherID: 1,
+      ProductID: Number(id),
+      Total: 0,
+    };
+    console.log(data);
+    const apiUrl = "http://localhost:8080/baskets"; //ส่งขอบันทึก
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+
+    fetch(apiUrl, requestOptions) //ขอการส่งกลับมาเช็คว่าบันทึกสำเร็จมั้ย
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.data) {
+          Swal.fire({
+            title: "Success",
+            text: "เพิ่มสินค้าในตะกร้าสำเร็จ !",
+            icon: "success",
+            timer: 2000,
+          }).then((result) => {
+            if (result) {
+              window.location.reload();
+            }
+          });
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: res.message,
+            icon: "error",
+            timer: 2000,
+          });
+        }
+      });
   };
 
   useEffect(() => {
@@ -116,7 +160,11 @@ export default function SingleProduct() {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button variant="contained" sx={{ backgroundColor: "#primary", width: "50%", p: 1.2 }}>
+                <Button
+                  variant="contained"
+                  sx={{ backgroundColor: "#primary", width: "50%", p: 1.2 }}
+                  onClick={AddToBasket}
+                >
                   <ShoppingCartSharpIcon />
                   ADD TO CART
                 </Button>

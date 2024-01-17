@@ -18,6 +18,7 @@ import InterestsSharpIcon from "@mui/icons-material/InterestsSharp";
 import NewspaperSharp from "@mui/icons-material/NewspaperSharp";
 import MenuBookIcon from "@mui/icons-material/MenuBookSharp";
 import HomeIcon from "@mui/icons-material/Home";
+import Typewriter from "typewriter-effect";
 
 export default function HeaderUser() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -121,6 +122,18 @@ export default function HeaderUser() {
             KEYHUBPRO
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
+          <Typography variant="h6" noWrap component="div" fontWeight="300" marginRight={1}>
+            <p>Welcome</p>
+          </Typography>
+          <Typography variant="h6" noWrap component="div" fontWeight="300" sx={{ color: "#eab308" }}>
+            <Typewriter
+              options={{
+                strings: ["Thadthon08! 🤖", "To 💸Keyhub Pro💸"],
+                autoStart: true,
+                loop: true,
+              }}
+            />
+          </Typography>
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton size="large" aria-label="show 4 new cart" color="inherit" onClick={() => Navigate("/cart")}>
               <Badge badgeContent={count} color="error">
