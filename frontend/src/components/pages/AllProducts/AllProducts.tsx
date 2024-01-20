@@ -4,11 +4,13 @@ import { Breadcrumbs, Container, CssBaseline, Link, Typography } from "@mui/mate
 import HomeIcon from "@mui/icons-material/Home";
 import AddBusinessSharpIcon from "@mui/icons-material/AddBusinessSharp";
 import { Content } from "antd/es/layout/layout";
+import styles from "./style.module.css";
+
 export default function AllProducts() {
   return (
     <Content style={{ backgroundColor: "#242526" }}>
       <CssBaseline />
-      <Container maxWidth="lg" sx={{ padding: 5 }}>
+      <Container maxWidth="lg" sx={{ padding: 5 }} className={styles.Container}>
         <Breadcrumbs aria-label="breadcrumb" sx={{ color: "white" }}>
           <Link underline="hover" sx={{ display: "flex", alignItems: "center" }} color="inherit" href="/home">
             <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
