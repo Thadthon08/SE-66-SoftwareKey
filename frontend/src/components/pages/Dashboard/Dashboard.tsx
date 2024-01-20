@@ -5,6 +5,7 @@ import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typewriter from "typewriter-effect";
+import styles from "./style.module.css";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -16,7 +17,7 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function Dashboard() {
   const username = localStorage.getItem("name");
   return (
-    <Content
+    <main
       style={{
         backgroundColor: "#242526",
         height: "92vh",
@@ -26,13 +27,27 @@ export default function Dashboard() {
       }}
     >
       <CssBaseline />
-      <Container maxWidth="lg" sx={{ padding: 5 }}>
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          <Grid item xs={7}>
-            <Typography variant="h4" noWrap component="div" fontWeight="600" sx={{ color: "white", marginTop: 3 }}>
+      <Container maxWidth="lg" sx={{ padding: 5 }} className={styles.Container}>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} className={styles.GridContainer}>
+          <Grid item xs={7} className={styles.GridContent}>
+            <Typography
+              className={styles.Typography}
+              variant="h4"
+              noWrap
+              component="div"
+              fontWeight="600"
+              sx={{ color: "white", marginTop: 3 }}
+            >
               🚀 ยินดีต้อนรับสู่เว็บไซต์ !
             </Typography>
-            <Typography variant="h4" noWrap component="div" fontWeight="600" sx={{ color: "#eab308", marginBottom: 3 }}>
+            <Typography
+              className={styles.Typewriter}
+              variant="h4"
+              noWrap
+              component="div"
+              fontWeight="600"
+              sx={{ color: "#eab308", marginBottom: 3 }}
+            >
               <Typewriter
                 options={{
                   strings: ["o💸KeyHub Pro Shop💸o"],
@@ -42,6 +57,7 @@ export default function Dashboard() {
               />
             </Typography>
             <Typography
+              className={styles.TypographyContent}
               variant="subtitle1"
               noWrap
               component="div"
@@ -51,6 +67,7 @@ export default function Dashboard() {
               เว็บไซต์ของเราเป็นที่รวบรวมและจำหน่ายคีย์ซอฟต์แวร์อย่างมีคุณภาพ
             </Typography>
             <Typography
+              className={styles.TypographyContent}
               variant="subtitle1"
               noWrap
               component="div"
@@ -60,6 +77,7 @@ export default function Dashboard() {
               และครบวงจรที่สำหรับผู้ใช้ทุกคนที่มีความต้องการในด้านซอฟต์แวร์ต่าง ๆ
             </Typography>
             <Typography
+              className={styles.NavigateHeader}
               variant="h6"
               noWrap
               component="div"
@@ -68,8 +86,9 @@ export default function Dashboard() {
             >
               เลือกเส้นทางสำรวจสินค้า:
             </Typography>
-            <List sx={{ marginTop: 2, width: "550px" }}>
+            <List sx={{ marginTop: 2, width: "550px" }} className={styles.ListNavigate}>
               <Button
+                className={styles.bttn}
                 href="#"
                 variant="outlined"
                 sx={{
@@ -87,6 +106,7 @@ export default function Dashboard() {
                 Operating System
               </Button>
               <Button
+                className={styles.bttn}
                 href="#"
                 variant="outlined"
                 sx={{
@@ -104,6 +124,7 @@ export default function Dashboard() {
                 Antivirus & Security
               </Button>
               <Button
+                className={styles.bttn}
                 href="#"
                 variant="outlined"
                 sx={{
@@ -121,6 +142,7 @@ export default function Dashboard() {
                 Office & Business
               </Button>
               <Button
+                className={styles.bttn}
                 href="#"
                 variant="outlined"
                 sx={{
@@ -139,6 +161,7 @@ export default function Dashboard() {
                 Utility, Tool & Driver
               </Button>
               <Button
+                className={styles.bttn}
                 href="#"
                 variant="outlined"
                 sx={{
@@ -157,6 +180,7 @@ export default function Dashboard() {
                 Image, Video & Audio
               </Button>
               <Button
+                className={styles.bttn}
                 href="#"
                 variant="outlined"
                 sx={{
@@ -176,6 +200,7 @@ export default function Dashboard() {
               </Button>
             </List>
             <Typography
+              className={styles.getStarted}
               variant="h6"
               noWrap
               component="div"
@@ -185,6 +210,7 @@ export default function Dashboard() {
               เลือกดูสินค้าทั้งหมด:
             </Typography>
             <Button
+              className={styles.bttngetStarted}
               href="/Home"
               variant="contained"
               sx={{
@@ -205,11 +231,11 @@ export default function Dashboard() {
               GET STARTED 🎉
             </Button>
           </Grid>
-          <Grid item xs={5}>
+          <Grid item xs={5} className={styles.GridImage}>
             <img src={process.env.PUBLIC_URL + "/images/dev.png"} width="130%" />
           </Grid>
         </Grid>
       </Container>
-    </Content>
+    </main>
   );
 }

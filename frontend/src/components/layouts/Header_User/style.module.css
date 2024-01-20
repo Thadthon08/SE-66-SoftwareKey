@@ -1,0 +1,8 @@
+@media screen and (max-width: 899px) {
+  .Iconhide {
+    display: block !important;
+  }
+  /* .Toolbar {
+    display: none !important;
+  } */
+}

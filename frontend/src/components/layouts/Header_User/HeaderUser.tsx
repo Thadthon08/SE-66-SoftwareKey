@@ -18,15 +18,23 @@ import InterestsSharpIcon from "@mui/icons-material/InterestsSharp";
 import NewspaperSharp from "@mui/icons-material/NewspaperSharp";
 import MenuBookIcon from "@mui/icons-material/MenuBookSharp";
 import HomeIcon from "@mui/icons-material/Home";
+import styles from "./style.module.css";
+import TableRowsIcon from "@mui/icons-material/TableRows";
+
 import Typewriter from "typewriter-effect";
 
 export default function HeaderUser() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [isToolbarVisible, setIsToolbarVisible] = React.useState(true);
   const isMenuOpen = Boolean(anchorEl);
   const [count, setCount] = React.useState(0);
   const Navigate = useNavigate();
 
+  const handleIconButtonClick = () => {
+    // Toggle the visibility of the toolbar
+    setIsToolbarVisible(!isToolbarVisible);
+  };
   const getitemCount = async () => {
     const apiUrl = "http://localhost:8080/lenbasket/" + String(localStorage.getItem("uid"));
     const requestOptions = {
@@ -114,7 +122,7 @@ export default function HeaderUser() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: "none", sm: "block", cursor: "pointer" } }}
+            sx={{ display: { xs: "block", sm: "block", cursor: "pointer" } }}
             onClick={() => {
               window.location.href = "/";
             }}
@@ -122,10 +130,10 @@ export default function HeaderUser() {
             KEYHUBPRO
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
-          <Typography variant="h6" noWrap component="div" fontWeight="300" marginRight={1}>
+          {/* <Typography variant="h6" noWrap component="div" fontWeight="300" marginRight={1}>
             <p>Welcome</p>
-          </Typography>
-          <Typography variant="h6" noWrap component="div" fontWeight="300" sx={{ color: "#eab308" }}>
+          </Typography> */}
+          {/* <Typography variant="h6" noWrap component="div" fontWeight="300" sx={{ color: "#eab308" }}>
             <Typewriter
               options={{
                 strings: ["Thadthon08! 🤖", "To 💸Keyhub Pro💸"],
@@ -133,7 +141,7 @@ export default function HeaderUser() {
                 loop: true,
               }}
             />
-          </Typography>
+          </Typography> */}
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton size="large" aria-label="show 4 new cart" color="inherit" onClick={() => Navigate("/cart")}>
               <Badge badgeContent={count} color="error">
@@ -162,10 +170,31 @@ export default function HeaderUser() {
               <Avatar alt="Remy Sharp" src={process.env.PUBLIC_URL + "/images/bg-login3.jpg"} />
             </IconButton>
           </Box>
+          <IconButton
+            className={styles.Iconhide}
+            size="large"
+            color="inherit"
+            sx={{ display: "none" }} // Set display to "block" initially
+            onClick={handleIconButtonClick}
+          >
+            <Badge color="error">
+              <TableRowsIcon />
+            </Badge>
+          </IconButton>
         </Toolbar>
         <Toolbar
+          className={`${styles.Toolbar} ${isToolbarVisible ? "" : "hidden"}`}
           variant="dense"
-          sx={{ backgroundColor: "#101010", display: "flex", justifyContent: "center", textAlign: "center" }}
+          sx={{
+            backgroundColor: "#101010",
+            display: "flex",
+            justifyContent: "center",
+            textAlign: "center",
+            "@media screen and (max-width: 899px)": {
+              display: isToolbarVisible ? "none" : "flex",
+              flexWrap: "wrap",
+            },
+          }}
         >
           <Button
             href="/home"
@@ -178,9 +207,17 @@ export default function HeaderUser() {
                 borderRadius: 0,
                 borderBottom: "1px solid white",
               },
+              "@media screen and (max-width: 899px)": {
+                display: isToolbarVisible ? "block" : "flex",
+              },
             }}
           >
-            <HomeIcon sx={{ mr: 0.5 }} fontSize="medium" />
+            <HomeIcon
+              sx={{
+                mr: 0.5,
+              }}
+              fontSize="medium"
+            />
             หน้าหลัก
           </Button>
           <Button
@@ -194,9 +231,18 @@ export default function HeaderUser() {
                 borderRadius: 0,
                 borderBottom: "1px solid white",
               },
+              "@media screen and (max-width: 899px)": {
+                display: isToolbarVisible ? "block" : "block",
+                width: "100%",
+              },
             }}
           >
-            <AddBusinessSharpIcon sx={{ mr: 0.5 }} fontSize="medium" />
+            <AddBusinessSharpIcon
+              sx={{
+                mr: 0.5,
+              }}
+              fontSize="medium"
+            />
             สินค้าทั้งหมด
           </Button>
           <Button
@@ -211,9 +257,18 @@ export default function HeaderUser() {
                 borderRadius: 0,
                 borderBottom: "1px solid white",
               },
+              "@media screen and (max-width: 899px)": {
+                display: isToolbarVisible ? "block" : "block",
+                width: "100%",
+              },
             }}
           >
-            <InterestsSharpIcon sx={{ mr: 0.5 }} fontSize="medium" />
+            <InterestsSharpIcon
+              sx={{
+                mr: 0.5,
+              }}
+              fontSize="medium"
+            />
             หมวดหมู่สินค้า
           </Button>
           <Button
@@ -228,9 +283,18 @@ export default function HeaderUser() {
                 borderRadius: 0,
                 borderBottom: "1px solid white",
               },
+              "@media screen and (max-width: 899px)": {
+                display: isToolbarVisible ? "block" : "block",
+                width: "100%",
+              },
             }}
           >
-            <NewspaperSharp sx={{ mr: 0.5 }} fontSize="medium" />
+            <NewspaperSharp
+              sx={{
+                mr: 0.5,
+              }}
+              fontSize="medium"
+            />
             ข่าว & คูปองส่วนลด
           </Button>
           <Button
@@ -245,9 +309,18 @@ export default function HeaderUser() {
                 borderRadius: 0,
                 borderBottom: "1px solid white",
               },
+              "@media screen and (max-width: 899px)": {
+                display: isToolbarVisible ? "block" : "block",
+                width: "100%",
+              },
             }}
           >
-            <MenuBookIcon sx={{ mr: 0.5 }} fontSize="medium" />
+            <MenuBookIcon
+              sx={{
+                mr: 0.5,
+              }}
+              fontSize="medium"
+            />
             วิธีการชำระเงิน
           </Button>
         </Toolbar>

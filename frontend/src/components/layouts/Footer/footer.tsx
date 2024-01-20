@@ -6,9 +6,18 @@ import { Navigate } from "react-router-dom";
 
 export default function footer() {
   return (
-    <Footer style={{ backgroundColor: "#3a3b3c", color: "white" }}>
+    <footer style={{ backgroundColor: "#3a3b3c", color: "white" }}>
       <CssBaseline />
-      <Grid container spacing={2} columns={16}>
+      <Grid
+        container
+        spacing={2}
+        columns={16}
+        sx={{
+          "@media (max-width: 898px)": {
+            display: "none",
+          },
+        }}
+      >
         <Grid item xs={1.5}></Grid>
         <Grid item xs={4.5}>
           <img src={process.env.PUBLIC_URL + "/images/keyhub1.png"} width="40%" />
@@ -184,6 +193,6 @@ export default function footer() {
           </List>
         </Grid>
       </Grid>
-    </Footer>
+    </footer>
   );
 }

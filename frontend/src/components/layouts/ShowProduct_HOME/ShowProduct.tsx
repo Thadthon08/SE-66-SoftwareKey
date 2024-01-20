@@ -11,13 +11,12 @@ import { Box, Container, Paper, TextField, Typography, styled } from "@mui/mater
 import { NumericFormat } from "react-number-format";
 import ShoppingCartSharpIcon from "@mui/icons-material/ShoppingCartSharp";
 import SellIcon from "@mui/icons-material/Sell";
-import { Content } from "antd/es/layout/layout";
 import { useNavigate } from "react-router-dom";
 import { alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import Swal from "sweetalert2";
-import { message } from "antd";
+import styles from "./style.module.css";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -25,6 +24,9 @@ const Search = styled("div")(({ theme }) => ({
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  "@media (max-width: 718px)": {
+    display: "none",
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
@@ -125,9 +127,10 @@ export default function ShowProduct() {
   }, [loadmore]);
   return (
     <>
-      <Content style={{ backgroundColor: "#242526" }}>
+      <main style={{ backgroundColor: "#242526" }}>
         <CssBaseline />
         <Container
+          className={styles.Container}
           maxWidth="lg"
           sx={{
             display: "flex",
@@ -146,7 +149,15 @@ export default function ShowProduct() {
               justifyContent: "center",
             }}
           >
-            <Typography variant="h5" sx={{ color: "white", flexGrow: 3, cursor: "default" }}>
+            <Typography
+            className={styles.headers}
+              variant="h5"
+              sx={{
+                color: "white",
+                flexGrow: 3,
+                cursor: "default",
+              }}
+            >
               <SellIcon fontSize="medium" />
               สินค้าทั้งหมด
             </Typography>
@@ -166,6 +177,7 @@ export default function ShowProduct() {
             .filter((product) => product.Name?.toLowerCase().includes(search.toLowerCase()))
             .map((product) => (
               <Card
+                className={styles.Card}
                 key={product.ID}
                 sx={{
                   bgcolor: "white",
@@ -181,6 +193,7 @@ export default function ShowProduct() {
                 }}
               >
                 <CardMedia
+                  className={styles.CardMedia}
                   sx={{
                     width: 150,
                     height: 150,
@@ -199,8 +212,9 @@ export default function ShowProduct() {
                     }}
                   />
                 </CardMedia>
-                <CardContent>
+                <CardContent className= {styles.CardContent}>
                   <Typography
+                    className={styles.productName}
                     gutterBottom
                     component="div"
                     sx={{
@@ -213,7 +227,7 @@ export default function ShowProduct() {
                   >
                     {product.Name}
                   </Typography>
-                  <Typography variant="body1">
+                  <Typography variant="body1" className={styles.productPrice}>
                     <NumericFormat
                       value={product.Price}
                       displayType={"text"}
@@ -224,18 +238,24 @@ export default function ShowProduct() {
                     />
                   </Typography>
                 </CardContent>
-                <CardActions sx={{ textAlign: "center", justifyContent: "center" }}>
+                <CardActions className={styles.CardActions} sx={{ textAlign: "center", justifyContent: "center" }}>
                   <Button
+                    className={styles.bttn}
                     variant="contained"
-                    sx={{ backgroundColor: "#primary" }}
+                    sx={{
+                      backgroundColor: "#primary",
+                    }}
                     onClick={() => product.ID && AddToBasket(product.ID)}
                   >
-                    <ShoppingCartSharpIcon />
+                    <ShoppingCartSharpIcon className={styles.Icon} />
                     ADD TO CART
                   </Button>
                   <Button
+                    className={styles.bttnle}
                     size="medium"
-                    sx={{ border: "1px solid #000" }}
+                    sx={{
+                      border: "1px solid #000",
+                    }}
                     onClick={() => {
                       Navigate("/product/" + product.ID);
                     }}
@@ -258,13 +278,14 @@ export default function ShowProduct() {
                 boxShadow: "0 0.5em 0.5em -0.4em black",
                 transform: "translateY(-0.25em)",
               },
+              mb: 4,
             }}
             onClick={showMoreItem}
           >
             View More
           </Button>
         </Box>
-      </Content>
+      </main>
     </>
   );
 }

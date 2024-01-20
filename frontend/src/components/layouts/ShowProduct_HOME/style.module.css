@@ -1,0 +1,61 @@
+@media screen and (max-width: 480px) {
+  .Container {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0px !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  .headers {
+    /* background-color: aquamarine !important; */
+    width: 100vw !important;
+    text-align: center;
+  }
+  .headers {
+    font-size: 1.2rem !important;
+  }
+  .Card {
+    width: 159px !important;
+    height: auto !important;
+    padding: 0px !important;
+  }
+  .CardMedia {
+    height: 120px !important;
+  }
+  .CardContent {
+    padding: 10px !important;
+  }
+  .productName {
+    width: 100% !important;
+    font-size: 13px !important;
+    text-align: left;
+  }
+  .productPrice {
+    width: 100% !important;
+    font-size: 16px !important;
+    text-align: left;
+  }
+  .CardActions {
+    margin: 0px 10px !important;
+    padding: 0 !important;
+    display: block !important;
+  }
+  .bttn {
+    font-size: 10px !important;
+    width: 100% !important;
+    display: block !important;
+    margin-bottom: 5px !important;
+  }
+  .bttnle {
+    margin: 0 !important;
+    font-size: 10px !important;
+    width: 100% !important;
+    display: block !important;
+    margin-bottom: 5px !important;
+  }
+  .Icon {
+    display: none !important;
+  }
+}
